@@ -1,0 +1,5 @@
+dist/index.html linguist-generated=false
+dist/sw.js linguist-generated=false
+dist/manifest.webmanifest linguist-generated=false
+dist/assets/** linguist-vendored
+docs/assets/** linguist-documentation

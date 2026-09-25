@@ -32,3 +32,7 @@ Ardından `http://localhost:4173` adresini açın.
 - `.openai/hosting.json`: Sites yayınlama yapılandırması
 
 Menü bilgileri, Tokat Gençlik ve Spor İl Müdürlüğünün yayımladığı görsellerden aktarılmıştır. Menü idare ve tedarik koşullarına göre değişebilir.
+
+## Lisans
+
+[MIT](LICENSE)
