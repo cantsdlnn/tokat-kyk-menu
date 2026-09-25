@@ -1,8 +1,10 @@
 # Tokat KYK Yemek Menüsü
 
+**Canlı site:** [https://tokatkykmenubc.com](https://tokatkykmenubc.com)
+
 Tokat Gençlik ve Spor İl Müdürlüğünün Eylül 2026 kahvaltı ve akşam yemeği menülerini gün gün veya aylık olarak gösteren responsive web uygulaması.
 
-Canlı site: [tokatkykmenubc.com](https://tokatkykmenubc.com)
+![Tokat KYK Yemek Menüsü arayüzü](docs/assets/tokat-kyk-menu.png)
 
 ## Özellikler
 
