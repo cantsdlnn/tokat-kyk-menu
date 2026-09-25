@@ -289,13 +289,13 @@
         <div class="brand-picture"><img src="assets/menu-trays.png" alt=""></div>
         <div><strong>Tokat KYK Menü</strong><span>Eylül 2026</span></div>
       </div>
-      <span class="status-pill">Menü yayında</span>
+      <span class="status-pill" id="statusPill">Menü yayında</span>
     </header>
 
     <section class="hero" aria-labelledby="pageTitle">
       <div class="hero-copy">
         <p class="kicker">14–30 Eylül · Tokat</p>
-        <h1 id="pageTitle">Bugün sofrada ne var?</h1>
+        <h1 id="pageTitle">Bugün menüde ne var?</h1>
         <p id="introSummary">Kahvaltı ve akşam menüsünü gün gün ya da ayın tamamında görüntüle.</p>
       </div>
       <img class="hero-art" src="assets/menu-trays.png" alt="Kahvaltı ve akşam yemeği tepsilerinin el çizimi illüstrasyonu">
@@ -304,8 +304,8 @@
     <main class="workspace">
       <nav class="control-panel" aria-label="Menü görünümü">
         <div class="segment meal" role="tablist" aria-label="Öğün seçimi">
-          <button type="button" data-meal="breakfast" role="tab" aria-selected="true">☀ Kahvaltı</button>
-          <button type="button" data-meal="dinner" role="tab" aria-selected="false">☾ Akşam yemeği</button>
+          <button type="button" data-meal="breakfast" role="tab" aria-selected="true">☀ Kahvaltı · 06.00–12.00</button>
+          <button type="button" data-meal="dinner" role="tab" aria-selected="false">☾ Akşam · 16.00–22.00</button>
         </div>
         <div class="segment view" role="tablist" aria-label="Liste görünümü">
           <button type="button" data-view="daily" role="tab" aria-selected="true">Gün gün</button>
@@ -357,10 +357,14 @@
       { day: 30, weekday: "Çarşamba", breakfast: ["Peynirli omlet", "Salçalı sosis", "Sade poğaça", "Beyaz peynir"], dinner: ["Ezogelin / Toyga çorba", "Etli buğu kebap", "Tavuk fajita + cips", "Etsiz güveç", "Pirinç pilavı", "Browni"] }
     ];
 
-    const state = { meal: "breakfast", view: "daily", selectedDay: (() => { const now = new Date(); return now.getFullYear() === 2026 && now.getMonth() === 8 && now.getDate() >= 14 && now.getDate() <= 30 ? now.getDate() : 14; })() };
+    const state = {
+      meal: (() => { const hour = new Date().getHours(); return hour >= 6 && hour < 12 ? "breakfast" : "dinner"; })(),
+      view: "daily",
+      selectedDay: (() => { const now = new Date(); return now.getFullYear() === 2026 && now.getMonth() === 8 && now.getDate() >= 14 && now.getDate() <= 30 ? now.getDate() : 14; })()
+    };
     const mealMeta = {
-      breakfast: { label: "Kahvaltı", glyph: "☀", color: "var(--breakfast)", soft: "var(--breakfast-soft)" },
-      dinner: { label: "Akşam yemeği", glyph: "☾", color: "var(--dinner)", soft: "var(--dinner-soft)" }
+      breakfast: { label: "Kahvaltı", glyph: "☀", hours: "06.00–12.00", color: "var(--breakfast)", soft: "var(--breakfast-soft)" },
+      dinner: { label: "Akşam yemeği", glyph: "☾", hours: "16.00–22.00", color: "var(--dinner)", soft: "var(--dinner-soft)" }
     };
     const el = id => document.getElementById(id);
 
@@ -401,9 +405,11 @@
       el("menuGrid").className = `menu-grid ${state.view === "daily" ? "daily" : ""}`;
       el("menuGrid").innerHTML = shown.map(cardTemplate).join("");
       el("resultTitle").textContent = state.view === "daily" ? `${selected.day} Eylül · ${selected.weekday}` : `Eylül ayı ${meta.label.toLocaleLowerCase("tr-TR")}`;
-      el("resultSubtitle").textContent = state.view === "daily" ? meta.label : "14–30 Eylül 2026 arasındaki tüm günler";
+      el("resultSubtitle").textContent = state.view === "daily" ? `${meta.label} · ${meta.hours}` : `14–30 Eylül 2026 · ${meta.hours}`;
       el("resultCount").textContent = state.view === "daily" ? `${shown[0][state.meal].length + (state.meal === "breakfast" ? sharedBreakfast.length : sharedDinner.length)} kalem` : `${shown.length} gün`;
-      el("introSummary").textContent = state.view === "daily" ? `${selected.day} Eylül ${selected.weekday} için ${meta.label.toLocaleLowerCase("tr-TR")} menüsü açık.` : `${shown.length} günlük ${meta.label.toLocaleLowerCase("tr-TR")} menüsünün tamamı açık.`;
+      el("introSummary").textContent = state.view === "daily" ? `${selected.day} Eylül ${selected.weekday} için ${meta.label.toLocaleLowerCase("tr-TR")} menüsü gösteriliyor · ${meta.hours}.` : `${shown.length} günlük ${meta.label.toLocaleLowerCase("tr-TR")} menüsünün tamamı açık.`;
+      const hour = new Date().getHours();
+      el("statusPill").textContent = hour >= 6 && hour < 12 ? "Kahvaltı saati" : hour >= 16 && hour < 22 ? "Akşam yemeği saati" : "Menü yayında";
       requestAnimationFrame(() => { const active = el("dateRail").querySelector(".is-active"); if (active && state.view === "daily") active.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" }); });
     }
 
