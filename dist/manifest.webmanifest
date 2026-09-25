@@ -7,6 +7,6 @@
   "background_color": "#fff8ed",
   "theme_color": "#173a32",
   "icons": [
-    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+    { "src": "assets/menu-trays.png", "sizes": "1536x1024", "type": "image/png" }
   ]
 }

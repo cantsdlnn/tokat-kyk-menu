@@ -1,5 +1,16 @@
-const CACHE = "tokat-menu-v1";
-const ASSETS = ["./", "./index.html", "./favicon.svg", "./manifest.webmanifest", "./assets/kahvalti-kaynak.png", "./assets/aksam-kaynak.png"];
+const CACHE = "tokat-menu-v2";
+const ASSETS = [
+  "./",
+  "./index.html",
+  "./manifest.webmanifest",
+  "./assets/menu-trays.png",
+  "./assets/fonts/dm-serif-display.ttf",
+  "./assets/fonts/manrope-400.ttf",
+  "./assets/fonts/manrope-500.ttf",
+  "./assets/fonts/manrope-600.ttf",
+  "./assets/fonts/manrope-700.ttf",
+  "./assets/fonts/manrope-800.ttf"
+];
 
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
