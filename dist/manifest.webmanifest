@@ -1,0 +1,12 @@
+{
+  "name": "Tokat KYK Yemek Menüsü",
+  "short_name": "Tokat Menü",
+  "description": "Tokat KYK yurtları için Eylül 2026 kahvaltı ve akşam yemeği menüsü.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fff8ed",
+  "theme_color": "#173a32",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
