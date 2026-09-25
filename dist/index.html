@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#153f3a">
   <meta name="description" content="Tokat KYK yurtları Eylül 2026 kahvaltı ve akşam yemeği menüsü.">
   <title>Tokat KYK Yemek Menüsü</title>
-  <link rel="icon" type="image/png" href="assets/menu-trays.png">
-  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" href="assets/menu-trays.png?v=5">
+  <link rel="manifest" href="manifest.webmanifest?v=5">
   <style>
     @font-face { font-family: "DM Serif Display"; src: url("assets/fonts/dm-serif-display.ttf") format("truetype"); font-weight: 400; font-display: swap; }
     @font-face { font-family: "Manrope"; src: url("assets/fonts/manrope-400.ttf") format("truetype"); font-weight: 400; font-display: swap; }
@@ -34,11 +34,13 @@
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { max-width: 100%; scroll-behavior: smooth; }
     body {
       margin: 0;
       min-width: 320px;
+      max-width: 100%;
       min-height: 100vh;
+      overflow-x: hidden;
       color: var(--ink);
       background:
         radial-gradient(circle at 4% 1%, rgba(240,173,66,.18), transparent 23rem),
@@ -49,6 +51,7 @@
       text-rendering: optimizeLegibility;
     }
 
+    img { max-width: 100%; }
     button { font: inherit; -webkit-tap-highlight-color: transparent; }
     button:focus-visible { outline: 3px solid rgba(240,173,66,.52); outline-offset: 3px; }
 
@@ -149,7 +152,7 @@
       pointer-events: none;
     }
 
-    .workspace { margin-top: -22px; position: relative; z-index: 3; }
+    .workspace { min-width: 0; margin-top: -22px; position: relative; z-index: 3; }
     .control-panel {
       display: grid;
       grid-template-columns: 1fr auto;
@@ -181,9 +184,12 @@
     .segment button[aria-selected="true"] { color: var(--ink); background: white; box-shadow: 0 5px 15px rgba(24,51,47,.09); }
     body[data-meal="breakfast"] .segment.meal button[aria-selected="true"] { color: var(--breakfast); }
     body[data-meal="dinner"] .segment.meal button[aria-selected="true"] { color: var(--dinner); }
+    .segment.meal button { display: flex; align-items: center; justify-content: center; gap: 7px; }
+    .meal-hours { font-size: .76rem; font-weight: 700; opacity: .74; white-space: nowrap; }
 
     .date-rail-wrap { position: relative; margin: 22px 0 12px; }
-    .date-rail { display: flex; gap: 10px; overflow-x: auto; padding: 3px 3px 12px; scrollbar-width: thin; scroll-snap-type: x proximity; }
+    .date-rail { display: flex; min-width: 0; gap: 10px; overflow-x: auto; overscroll-behavior-x: contain; padding: 3px 3px 12px; scrollbar-width: none; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; }
+    .date-rail::-webkit-scrollbar { display: none; }
     .date-chip {
       min-width: 74px;
       min-height: 77px;
@@ -255,22 +261,29 @@
     .empty { grid-column: 1 / -1; padding: 60px 24px; border: 1px dashed var(--line); border-radius: 24px; color: var(--muted); text-align: center; }
     @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+    @media (min-width: 1100px) {
+      .date-rail { display: grid; grid-template-columns: repeat(17, minmax(0, 1fr)); overflow: visible; }
+      .date-chip { min-width: 0; }
+    }
     @media (max-width: 940px) {
       .hero { grid-template-columns: 1fr; padding-bottom: 210px; }
       .hero-art { width: min(78%, 630px); right: -4%; bottom: -31%; }
       .menu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 680px) {
-      .app-shell { padding-top: 12px; }
+      .app-shell { padding: 12px 14px 48px; }
+      .topbar { min-height: 52px; margin-bottom: 12px; }
+      .brand-picture { width: 44px; height: 44px; border-radius: 14px; }
       .status-pill { display: none; }
-      .hero { min-height: 440px; padding: 30px 24px 210px; border-radius: 28px; }
-      .hero h1 { font-size: clamp(2.8rem, 16vw, 4.4rem); }
+      .hero { min-height: 410px; padding: 26px 21px 195px; border-radius: 28px; }
+      .hero h1 { font-size: clamp(2.65rem, 15vw, 3.8rem); }
       .hero p { margin-top: 15px; font-size: .91rem; }
-      .hero-art { width: 100%; right: -9%; bottom: -16%; }
+      .hero-art { width: 104%; right: -12%; bottom: -12%; }
       .workspace { margin-top: -17px; }
-      .control-panel { grid-template-columns: 1fr; border-radius: 21px; }
+      .control-panel { grid-template-columns: 1fr; gap: 9px; padding: 10px; border-radius: 21px; }
       .segment.view { grid-template-columns: 1fr 1fr; }
       .segment button { padding-inline: 11px; }
+      .segment.meal button { min-height: 58px; flex-direction: column; gap: 1px; line-height: 1.25; }
       .menu-grid, .menu-grid.daily { grid-template-columns: 1fr; }
       .menu-grid.daily .menu-card { grid-template-columns: 1fr; min-height: 0; }
       .menu-grid.daily .card-date { min-height: 205px; }
@@ -286,7 +299,7 @@
   <div class="app-shell">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-picture"><img src="assets/menu-trays.png" alt=""></div>
+        <div class="brand-picture"><img src="assets/menu-trays.png?v=5" alt=""></div>
         <div><strong>Tokat KYK Menü</strong><span>Eylül 2026</span></div>
       </div>
       <span class="status-pill" id="statusPill">Menü yayında</span>
@@ -298,14 +311,14 @@
         <h1 id="pageTitle">Bugün menüde ne var?</h1>
         <p id="introSummary">Kahvaltı ve akşam menüsünü gün gün ya da ayın tamamında görüntüle.</p>
       </div>
-      <img class="hero-art" src="assets/menu-trays.png" alt="Kahvaltı ve akşam yemeği tepsilerinin el çizimi illüstrasyonu">
+      <img class="hero-art" src="assets/menu-trays.png?v=5" alt="Kahvaltı ve akşam yemeği tepsilerinin el çizimi illüstrasyonu">
     </section>
 
     <main class="workspace">
       <nav class="control-panel" aria-label="Menü görünümü">
         <div class="segment meal" role="tablist" aria-label="Öğün seçimi">
-          <button type="button" data-meal="breakfast" role="tab" aria-selected="true">☀️ Kahvaltı · 06.00–12.00</button>
-          <button type="button" data-meal="dinner" role="tab" aria-selected="false">🌙 Akşam · 16.00–22.00</button>
+          <button type="button" data-meal="breakfast" role="tab" aria-selected="true"><span>☀️ Kahvaltı</span><span class="meal-hours">06.00–12.00</span></button>
+          <button type="button" data-meal="dinner" role="tab" aria-selected="false"><span>🌙 Akşam</span><span class="meal-hours">16.00–22.00</span></button>
         </div>
         <div class="segment view" role="tablist" aria-label="Liste görünümü">
           <button type="button" data-view="daily" role="tab" aria-selected="true">Gün gün</button>
@@ -357,10 +370,24 @@
       { day: 30, weekday: "Çarşamba", breakfast: ["Peynirli omlet", "Salçalı sosis", "Sade poğaça", "Beyaz peynir"], dinner: ["Ezogelin / Toyga çorba", "Etli buğu kebap", "Tavuk fajita + cips", "Etsiz güveç", "Pirinç pilavı", "Browni"] }
     ];
 
+    function tokatNow() {
+      const parts = new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Europe/Istanbul",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        hourCycle: "h23"
+      }).formatToParts(new Date());
+      const values = Object.fromEntries(parts.filter(part => part.type !== "literal").map(part => [part.type, Number(part.value)]));
+      return { year: values.year, month: values.month, day: values.day, hour: values.hour };
+    }
+
+    const initialTime = tokatNow();
     const state = {
-      meal: (() => { const hour = new Date().getHours(); return hour >= 6 && hour < 12 ? "breakfast" : "dinner"; })(),
+      meal: initialTime.hour >= 6 && initialTime.hour < 12 ? "breakfast" : "dinner",
       view: "daily",
-      selectedDay: (() => { const now = new Date(); return now.getFullYear() === 2026 && now.getMonth() === 8 && now.getDate() >= 14 && now.getDate() <= 30 ? now.getDate() : 14; })()
+      selectedDay: initialTime.year === 2026 && initialTime.month === 9 && initialTime.day >= 14 && initialTime.day <= 30 ? initialTime.day : 14
     };
     const mealMeta = {
       breakfast: { label: "Kahvaltı", glyph: "☀️", hours: "06.00–12.00", color: "var(--breakfast)", soft: "var(--breakfast-soft)" },
@@ -369,9 +396,9 @@
     const el = id => document.getElementById(id);
 
     function renderDateRail() {
+      const current = tokatNow();
       el("dateRail").innerHTML = menu.map(item => {
-        const now = new Date();
-        const isToday = now.getFullYear() === 2026 && now.getMonth() === 8 && now.getDate() === item.day;
+        const isToday = current.year === 2026 && current.month === 9 && current.day === item.day;
         return `<button type="button" class="date-chip ${state.selectedDay === item.day ? "is-active" : ""}" data-day="${item.day}" ${isToday ? 'aria-current="date"' : ''} aria-label="${item.day} Eylül ${item.weekday}"><small>${item.weekday.slice(0,3)}</small><strong>${item.day}</strong></button>`;
       }).join("");
       el("dateRail").querySelectorAll(".date-chip").forEach(button => button.addEventListener("click", () => {
@@ -383,8 +410,8 @@
       const meta = mealMeta[state.meal];
       const fixed = state.meal === "breakfast" ? sharedBreakfast : sharedDinner;
       const list = [...item[state.meal].map(text => ({ text, fixed: false })), ...fixed.map(text => ({ text, fixed: true }))];
-      const now = new Date();
-      const isToday = now.getFullYear() === 2026 && now.getMonth() === 8 && now.getDate() === item.day;
+      const current = tokatNow();
+      const isToday = current.year === 2026 && current.month === 9 && current.day === item.day;
       return `<article class="menu-card" style="--meal-color:${meta.color};--meal-soft:${meta.soft};animation-delay:${Math.min(index * 30, 240)}ms">
         ${isToday ? '<span class="today-flag">BUGÜN</span>' : ''}
         <div class="card-date"><div><p class="weekday">${item.weekday}</p><div class="day">${item.day}</div><span class="month">Eylül 2026</span></div><span class="meal-badge"><span aria-hidden="true">${meta.glyph}</span>${meta.label}</span></div>
@@ -396,7 +423,7 @@
 
     function render() {
       document.body.dataset.meal = state.meal;
-      document.querySelectorAll("[data-meal]").forEach(button => button.setAttribute("aria-selected", String(button.dataset.meal === state.meal)));
+      document.querySelectorAll("button[data-meal]").forEach(button => button.setAttribute("aria-selected", String(button.dataset.meal === state.meal)));
       renderDateRail();
       const selected = menu.find(item => item.day === state.selectedDay);
       const shown = state.view === "daily" ? [selected] : menu;
@@ -408,15 +435,28 @@
       el("resultSubtitle").textContent = state.view === "daily" ? `${meta.label} · ${meta.hours}` : `14–30 Eylül 2026 · ${meta.hours}`;
       el("resultCount").textContent = state.view === "daily" ? `${shown[0][state.meal].length + (state.meal === "breakfast" ? sharedBreakfast.length : sharedDinner.length)} kalem` : `${shown.length} gün`;
       el("introSummary").textContent = state.view === "daily" ? `${selected.day} Eylül ${selected.weekday} için ${meta.label.toLocaleLowerCase("tr-TR")} menüsü gösteriliyor · ${meta.hours}.` : `${shown.length} günlük ${meta.label.toLocaleLowerCase("tr-TR")} menüsünün tamamı açık.`;
-      const hour = new Date().getHours();
+      const hour = tokatNow().hour;
       el("statusPill").textContent = hour >= 6 && hour < 12 ? "Kahvaltı saati" : hour >= 16 && hour < 22 ? "Akşam yemeği saati" : "Menü yayında";
       requestAnimationFrame(() => { const active = el("dateRail").querySelector(".is-active"); if (active && state.view === "daily") active.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" }); });
     }
 
-    document.querySelectorAll("[data-meal]").forEach(button => button.addEventListener("click", () => { state.meal = button.dataset.meal; render(); }));
+    document.querySelectorAll("button[data-meal]").forEach(button => button.addEventListener("click", () => { state.meal = button.dataset.meal; render(); }));
     document.querySelectorAll("[data-view]").forEach(button => button.addEventListener("click", () => { state.view = button.dataset.view; syncViewButtons(); render(); }));
     render();
-    if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js"));
+    window.addEventListener("load", async () => {
+      try {
+        if ("serviceWorker" in navigator) {
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(registrations.map(registration => registration.unregister()));
+        }
+        if ("caches" in window) {
+          const keys = await caches.keys();
+          await Promise.all(keys.filter(key => key.startsWith("tokat-menu-")).map(key => caches.delete(key)));
+        }
+      } catch {
+        // Site çalışmasını etkilememesi için önbellek temizleme hataları sessizce geçilir.
+      }
+    });
   </script>
 </body>
 </html>
