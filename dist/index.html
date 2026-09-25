@@ -304,8 +304,8 @@
     <main class="workspace">
       <nav class="control-panel" aria-label="Menü görünümü">
         <div class="segment meal" role="tablist" aria-label="Öğün seçimi">
-          <button type="button" data-meal="breakfast" role="tab" aria-selected="true">☀ Kahvaltı · 06.00–12.00</button>
-          <button type="button" data-meal="dinner" role="tab" aria-selected="false">☾ Akşam · 16.00–22.00</button>
+          <button type="button" data-meal="breakfast" role="tab" aria-selected="true">☀️ Kahvaltı · 06.00–12.00</button>
+          <button type="button" data-meal="dinner" role="tab" aria-selected="false">🌙 Akşam · 16.00–22.00</button>
         </div>
         <div class="segment view" role="tablist" aria-label="Liste görünümü">
           <button type="button" data-view="daily" role="tab" aria-selected="true">Gün gün</button>
@@ -363,8 +363,8 @@
       selectedDay: (() => { const now = new Date(); return now.getFullYear() === 2026 && now.getMonth() === 8 && now.getDate() >= 14 && now.getDate() <= 30 ? now.getDate() : 14; })()
     };
     const mealMeta = {
-      breakfast: { label: "Kahvaltı", glyph: "☀", hours: "06.00–12.00", color: "var(--breakfast)", soft: "var(--breakfast-soft)" },
-      dinner: { label: "Akşam yemeği", glyph: "☾", hours: "16.00–22.00", color: "var(--dinner)", soft: "var(--dinner-soft)" }
+      breakfast: { label: "Kahvaltı", glyph: "☀️", hours: "06.00–12.00", color: "var(--breakfast)", soft: "var(--breakfast-soft)" },
+      dinner: { label: "Akşam yemeği", glyph: "🌙", hours: "16.00–22.00", color: "var(--dinner)", soft: "var(--dinner-soft)" }
     };
     const el = id => document.getElementById(id);
 
