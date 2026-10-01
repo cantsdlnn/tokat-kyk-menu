@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#153f3a">
-  <meta name="description" content="Tokat KYK yurtları Eylül 2026 kahvaltı ve akşam yemeği menüsü.">
+  <meta name="description" content="Tokat KYK yurtları Ekim 2026 kahvaltı ve akşam yemeği menüsü.">
   <title>Tokat KYK Yemek Menüsü</title>
-  <link rel="icon" type="image/png" href="assets/menu-trays.png?v=5">
-  <link rel="manifest" href="manifest.webmanifest?v=5">
+  <link rel="icon" type="image/png" href="assets/menu-trays.png?v=6">
+  <link rel="manifest" href="manifest.webmanifest?v=6">
   <style>
     @font-face { font-family: "DM Serif Display"; src: url("assets/fonts/dm-serif-display.ttf") format("truetype"); font-weight: 400; font-display: swap; }
     @font-face { font-family: "Manrope"; src: url("assets/fonts/manrope-400.ttf") format("truetype"); font-weight: 400; font-display: swap; }
@@ -166,9 +166,10 @@
       backdrop-filter: blur(16px);
     }
 
-    .segment { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; padding: 5px; border-radius: 17px; background: #edf0eb; }
+    .segment { display: grid; min-width: 0; grid-template-columns: 1fr 1fr; gap: 7px; padding: 5px; border-radius: 17px; background: #edf0eb; }
     .segment.view { grid-template-columns: repeat(2, auto); }
     .segment button {
+      min-width: 0;
       min-height: 47px;
       border: 0;
       border-radius: 12px;
@@ -262,7 +263,7 @@
     @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
     @media (min-width: 1100px) {
-      .date-rail { display: grid; grid-template-columns: repeat(17, minmax(0, 1fr)); overflow: visible; }
+      .date-rail { display: grid; grid-template-columns: repeat(16, minmax(0, 1fr)); overflow: visible; }
       .date-chip { min-width: 0; }
     }
     @media (max-width: 940px) {
@@ -276,7 +277,7 @@
       .brand-picture { width: 44px; height: 44px; border-radius: 14px; }
       .status-pill { display: none; }
       .hero { min-height: 410px; padding: 26px 21px 195px; border-radius: 28px; }
-      .hero h1 { font-size: clamp(2.65rem, 15vw, 3.8rem); }
+      .hero h1 { font-size: clamp(2.55rem, 13vw, 3.35rem); }
       .hero p { margin-top: 15px; font-size: .91rem; }
       .hero-art { width: 104%; right: -12%; bottom: -12%; }
       .workspace { margin-top: -17px; }
@@ -299,19 +300,19 @@
   <div class="app-shell">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-picture"><img src="assets/menu-trays.png?v=5" alt=""></div>
-        <div><strong>Tokat KYK Menü</strong><span>Eylül 2026</span></div>
+        <div class="brand-picture"><img src="assets/menu-trays.png?v=6" alt=""></div>
+        <div><strong>Tokat KYK Menü</strong><span>Ekim 2026</span></div>
       </div>
       <span class="status-pill" id="statusPill">Menü yayında</span>
     </header>
 
     <section class="hero" aria-labelledby="pageTitle">
       <div class="hero-copy">
-        <p class="kicker">14–30 Eylül · Tokat</p>
+        <p class="kicker">1–31 Ekim · Tokat</p>
         <h1 id="pageTitle">Bugün menüde ne var?</h1>
         <p id="introSummary">Kahvaltı ve akşam menüsünü gün gün ya da ayın tamamında görüntüle.</p>
       </div>
-      <img class="hero-art" src="assets/menu-trays.png?v=5" alt="Kahvaltı ve akşam yemeği tepsilerinin el çizimi illüstrasyonu">
+      <img class="hero-art" src="assets/menu-trays.png?v=6" alt="Kahvaltı ve akşam yemeği tepsilerinin el çizimi illüstrasyonu">
     </section>
 
     <main class="workspace">
@@ -344,30 +345,44 @@
       </aside>
     </main>
 
-    <footer class="footer"><span>Tokat Gençlik ve Spor İl Müdürlüğü menüsü</span><span>14–30 Eylül 2026</span></footer>
+    <footer class="footer"><span>Tokat Gençlik ve Spor İl Müdürlüğü menüsü</span><span>1–31 Ekim 2026</span></footer>
   </div>
 
   <script>
-    const sharedBreakfast = ["Siyah / Yeşil zeytin", "Çeyrek ekmek", "0,5 L su", "Çay / Bitki çayı"];
-    const sharedDinner = ["Çeyrek ekmek", "0,5 L su"];
+    const sharedBreakfast = ["Siyah / Yeşil zeytin", "Çeyrek ekmek", "500 ml su", "Çay / Bitki çayı"];
+    const sharedDinner = ["Çeyrek ekmek", "500 ml su"];
     const menu = [
-      { day: 14, weekday: "Pazartesi", breakfast: ["Sade omlet", "Patates kızartması", "Simit", "Beyaz peynir"], dinner: ["Mercimek / Toyga çorba", "Fırın tavuk pirzola + söğüş", "Taze fasulye", "Pirinç pilavı", "Cacık"] },
-      { day: 15, weekday: "Salı", breakfast: ["Haşlanmış yumurta", "Menemen", "Zeytinli / Peynirli açma", "Kaşar peyniri"], dinner: ["Şehriye / Mantar çorba", "Et çökertme", "Etsiz güveç", "Bulgur pilavı", "Çoban salata"] },
-      { day: 16, weekday: "Çarşamba", breakfast: ["Kaşarlı omlet", "Patates salatası", "Dere otlu poğaça", "Beyaz peynir"], dinner: ["Ezogelin / Yüksük çorba", "Izgara köfte + cips", "Tavuk şiş + cips", "Kabak mücver", "Soslu spagetti", "Çikolatalı yaş pasta"] },
-      { day: 17, weekday: "Perşembe", breakfast: ["Haşlanmış yumurta", "Sosis kızartma", "Peynirli / Ispanaklı börek", "Kaşar peyniri"], dinner: ["Tarhana / Tutmaç çorba", "Mantarlı tavuk fajita", "Patates yemeği", "Bulgur pilavı", "Yoğurt"] },
-      { day: 18, weekday: "Cuma", breakfast: ["Sucuklu yumurta", "Patates kızartması", "Simit", "Labne peyniri"], dinner: ["Kremalı tavuk / Domates çorba", "Etsiz kuru fasulye", "İmam bayıldı", "Pirinç pilavı", "Çoban salata", "Şekerpare"] },
-      { day: 19, weekday: "Cumartesi", breakfast: ["Haşlanmış yumurta", "Karışık kızartma", "Pişi + reçel", "Beyaz peynir"], dinner: ["Mercimek / Düğün çorba", "Tavuk kanat + incik + kroket", "Karışık kızartma", "Salçalı makarna", "Elma"] },
-      { day: 20, weekday: "Pazar", breakfast: ["Peynirli omlet", "Patates kavurması", "Çikolatalı milföy börek", "Kaşar peyniri"], dinner: ["Şehriye / Toyga çorba", "Et tantuni", "Tavuk tantuni", "Dolma", "Mantı", "Çiğ köfte"] },
-      { day: 21, weekday: "Pazartesi", breakfast: ["Haşlanmış yumurta", "Patates kroket", "Karışık pizza", "Beyaz peynir"], dinner: ["Ezogelin / Mantar çorba", "Tavuk çökertme", "Taze fasulye", "Meyhane pilavı", "Kadayıflı muhallebi"] },
-      { day: 22, weekday: "Salı", breakfast: ["Sade omlet", "Sosis kızartma", "Sade poğaça", "Kaşar peyniri"], dinner: ["Tarhana / Yüksük çorba", "Et sote + elma dilim patates", "Tavuk sote + elma dilim patates", "Kabak sote", "Pirinç pilavı", "Rus salatası"] },
-      { day: 23, weekday: "Çarşamba", breakfast: ["Haşlanmış yumurta", "Patates kızartması", "Zeytinli / Peynirli açma", "Labne peynir"], dinner: ["Yayla / Bacaklı çorba", "Piliç roti + söğüş", "Etsiz güveç", "Soslu makarna", "Haydari"] },
-      { day: 24, weekday: "Perşembe", breakfast: ["Kaşarlı omlet", "Karışık kızartma", "Peynirli milföy börek", "Beyaz peynir"], dinner: ["Mercimek / Düğün çorba", "Etsiz nohut yemeği", "Patates yemeği", "Pirinç pilavı", "Cevizli baklava"] },
-      { day: 25, weekday: "Cuma", breakfast: ["Haşlanmış yumurta", "Patates salatası", "Pişi + sürülebilir çikolata", "Kaşar peyniri"], dinner: ["Tavuk suyu / Tarhana çorba", "Hasanpaşa köfte", "Bezelye yemeği", "Meyhane pilavı", "Bahçe salata"] },
-      { day: 26, weekday: "Cumartesi", breakfast: ["Menemen", "Salçalı sosis", "Simit", "Krem peynir"], dinner: ["Ezogelin / Domates çorba", "Fırında tavuk bonfile + cips", "Karışık kızartma", "Yoğurtlu makarna", "Mercimek köfte"] },
-      { day: 27, weekday: "Pazar", breakfast: ["Haşlanmış yumurta", "Patates kızartması", "Peynirli / Ispanaklı börek", "Kaşar peyniri"], dinner: ["Şehriye / Tutmaç çorba", "Etli sultan kebabı", "Tavuklu sultan kebabı", "Karnabahar graten", "Pirinç pilavı", "Mısırlı marul salata"] },
-      { day: 28, weekday: "Pazartesi", breakfast: ["Sucuklu yumurta", "Patates kavurması", "Dere otlu poğaça", "Beyaz peynir"], dinner: ["Mercimek / Mantar çorba", "Hamburger", "Kabak mücver", "Patates kızartması + ketçap", "Makarna salatası"] },
-      { day: 29, weekday: "Salı", breakfast: ["Haşlanmış yumurta", "Karışık kızartma", "Pişi + sürülebilir çikolata", "Kaşar peyniri"], dinner: ["Yayla / Şehriye çorba", "Tavuk pane + soğan halkası", "Ispanak graten", "Soslu makarna", "Yoğurt"] },
-      { day: 30, weekday: "Çarşamba", breakfast: ["Peynirli omlet", "Salçalı sosis", "Sade poğaça", "Beyaz peynir"], dinner: ["Ezogelin / Toyga çorba", "Etli buğu kebap", "Tavuk fajita + cips", "Etsiz güveç", "Pirinç pilavı", "Browni"] }
+      { day: 1, weekday: "Perşembe", breakfast: ["Haşlanmış yumurta", "Patates kavurması", "Karışık pizza", "Krem peyniri"], dinner: ["Yayla / Domates çorba", "Çıtır tavuk + elma dilim patates", "Kabak mücver", "Salçalı makarna", "Çoban salata"] },
+      { day: 2, weekday: "Cuma", breakfast: ["Menemen", "Patates kızartması", "Çikolatalı milföy börek", "Beyaz peynir"], dinner: ["Mercimek / Düğün çorba", "Etli kuru fasulye yemeği", "Mevsim türlü", "Pirinç pilavı", "Turşu", "Supangle"] },
+      { day: 3, weekday: "Cumartesi", breakfast: ["Haşlanmış yumurta", "Karışık kızartma", "Simit", "Kaşar peyniri"], dinner: ["Terbiyeli tavuk / Tarhana çorba", "Püreli tas kebabı", "Tavuk sote + püre", "Taze fasulye", "Bulgur pilavı", "Ayran"] },
+      { day: 4, weekday: "Pazar", breakfast: ["Sade omlet", "Salçalı sosis", "Peynirli / Ispanaklı börek", "Beyaz peynir"], dinner: ["Şehriye / Toyga çorba", "Tavuk tantuni (ekmek arası)", "Biber dolma", "Mantı", "Çiğ köfte"] },
+      { day: 5, weekday: "Pazartesi", breakfast: ["Haşlanmış yumurta", "Patates kızartması", "Zeytinli / Peynirli açma", "Kaşar peyniri"], dinner: ["Ezogelin / Sebze çorba", "Karnıyarık", "Fırında patates (beşamelli / beşamelsiz)", "Pirinç pilavı", "Revani"] },
+      { day: 6, weekday: "Salı", breakfast: ["Kaşarlı omlet", "Patates salatası", "Dere otlu poğaça", "Labne peyniri"], dinner: ["Yayla / Domates çorba", "Şinitzel + soğan halkası + kroket", "Nohut yemeği", "Bulgur pilavı", "Karışık salata"] },
+      { day: 7, weekday: "Çarşamba", breakfast: ["Haşlanmış yumurta", "Sosis kızartma", "Peynirli / Ispanaklı börek", "Beyaz peynir"], dinner: ["Mercimek / Terbiyeli tavuk çorba", "Izgara köfte + köz domates biber", "Köri soslu tavuk", "Sebzeli mantar sote", "Salçalı makarna", "Haydari"] },
+      { day: 8, weekday: "Perşembe", breakfast: ["Sucuklu omlet", "Kırmızı / Yeşil biber kızartması", "Kakaolu kek", "Kaşar peyniri"], dinner: ["Sebze / Şehriye çorba", "Tavuk fajita + püre", "Patates yemeği", "Pirinç pilavı", "Puding"] },
+      { day: 9, weekday: "Cuma", breakfast: ["Haşlanmış yumurta", "Patates kızartması", "Pişi + bal + tereyağı", "Beyaz peynir"], dinner: ["Toyga / Ezogelin çorba", "Etli sultan kebabı", "Soya soslu tavuk", "Etsiz güveç", "Bulgur pilavı", "Havuç tarator"] },
+      { day: 10, weekday: "Cumartesi", breakfast: ["Peynirli omlet", "Patates kavurması", "Sosisli milföy börek", "Kaşar peyniri"], dinner: ["Tarhana / Mantar çorba", "Tavuk pirzola + cips", "Karışık kızartma", "Yoğurtlu makarna", "Çoban salata"] },
+      { day: 11, weekday: "Pazar", breakfast: ["Haşlanmış yumurta", "Patates kroket", "Karışık pizza", "Beyaz peynir"], dinner: ["Terbiyeli tavuk / Bacaklı çorba", "Etsiz kuru fasulye", "Taze fasulye", "Pirinç pilavı", "Cevizli baklava"] },
+      { day: 12, weekday: "Pazartesi", breakfast: ["Sade omlet", "Patates kızartması", "Çikolatalı milföy börek", "Kaşar peyniri"], dinner: ["Yayla / Domates çorba", "Et tantuni (ekmek arası)", "Tavuk tantuni (ekmek arası)", "İmambayıldı", "Kremalı makarna", "Karışık salata"] },
+      { day: 13, weekday: "Salı", breakfast: ["Haşlanmış yumurta", "Sebzeli sosis", "Sade poğaça", "Labne peyniri"], dinner: ["Mercimek / Düğün çorba", "Beşamel soslu tavuk", "Biber dolma", "Börek", "Yaş pasta"] },
+      { day: 14, weekday: "Çarşamba", breakfast: ["Kaşarlı omlet", "Karışık kızartma", "Zeytinli / Peynirli açma", "Beyaz peynir"], dinner: ["Tutmaç / Şehriye çorba", "Hamburger + ketçap + mayonez", "Kabak mücver", "Patates kızartması", "Ayran veya meyve suyu"] },
+      { day: 15, weekday: "Perşembe", breakfast: ["Haşlanmış yumurta", "Patates salatası", "Börek", "Kaşar peyniri"], dinner: ["Toyga / Tarhana çorba", "Tavuk döner + söğüş", "Karışık kızartma", "Pirinç pilavı", "Çoban salata"] },
+      { day: 16, weekday: "Cuma", breakfast: ["Menemen", "Patates kızartması", "Simit", "Krem peyniri"], dinner: ["Mantar / Domates çorba", "Et sote (patatesli)", "Tavuk sote (patatesli)", "Karışık sebze graten", "Sebzeli bulgur pilavı", "Tulumba"] },
+      { day: 17, weekday: "Cumartesi", breakfast: ["Haşlanmış yumurta", "Menemen", "Yoğurtmaç", "Kaşar peyniri"], dinner: ["Ezogelin / Sebze çorba", "Tavuk külbastı + elma dilim patates", "Etsiz güveç", "Pirinç pilavı", "Ezme"] },
+      { day: 18, weekday: "Pazar", breakfast: ["Sucuklu omlet", "Patates kavurması", "Dere otlu poğaça", "Beyaz peynir"], dinner: ["Terbiyeli tavuk / Erişteli yeşil mercimek çorba", "Etsiz kuru fasulye", "Sebzeli mantar sote", "Domatesli bulgur pilavı", "Kuru cacık"] },
+      { day: 19, weekday: "Pazartesi", breakfast: ["Haşlanmış yumurta", "Sosis kızartma", "Pişi + reçel", "Kaşar peyniri"], dinner: ["Toyga / Şehriye çorba", "Tavuk tantuni (ekmek arası)", "Ispanak yemeği + yoğurt", "Salçalı makarna", "Cevizli kadayıf"] },
+      { day: 20, weekday: "Salı", breakfast: ["Peynirli omlet", "Patates kroket", "Karışık pizza", "Beyaz peynir"], dinner: ["Mercimek / Düğün çorba", "Izgara köfte + köz domates biber", "Kremalı mantarlı tavuk", "Nohut yemeği", "Bulgur pilavı", "Cacık"] },
+      { day: 21, weekday: "Çarşamba", breakfast: ["Haşlanmış yumurta", "Patates kızartması", "Sade poğaça", "Labne peyniri"], dinner: ["Tutmaç / Tarhana çorba", "Piliç roti + söğüş", "Biber dolma", "Soslu makarna", "Karışık salata"] },
+      { day: 22, weekday: "Perşembe", breakfast: ["Sade omlet", "Patates salatası", "Çikolatalı milföy börek", "Kaşar peyniri"], dinner: ["Ezogelin / Mantar çorba", "Etsiz kuru fasulye", "Fırında patates (beşamelli / beşamelsiz)", "Pirinç pilavı", "Rus salatası", "Trileçe"] },
+      { day: 23, weekday: "Cuma", breakfast: ["Haşlanmış yumurta", "Patates kızartması", "Peynirli / Ispanaklı börek", "Beyaz peynir"], dinner: ["Terbiyeli tavuk / Domates çorba", "Rosto köfte + püre", "Tavuk kanat incik + cips", "Kabak kalye", "Yeşil mercimekli bulgur pilavı", "Çoban salata"] },
+      { day: 24, weekday: "Cumartesi", breakfast: ["Kaşarlı omlet", "Karışık kızartma", "Yumurtalı ekmek", "Kaşar peyniri"], dinner: ["Toyga / Tarhana çorba", "Tavuklu sultan kebabı", "Mevsim türlü", "Şehriyeli pirinç pilavı", "Şekerpare"] },
+      { day: 25, weekday: "Pazar", breakfast: ["Haşlanmış yumurta", "Kaygana", "Simit", "Beyaz peynir"], dinner: ["Yayla / Şehriye çorba", "Et kavurma + elma dilim patates", "Tavuk kavurma + elma dilim patates", "İmambayıldı", "Bulgur pilavı", "Ayran"] },
+      { day: 26, weekday: "Pazartesi", breakfast: ["Omlet", "Patates salatası", "Dere otlu poğaça", "Krem peyniri"], dinner: ["Mercimek / Mantar çorba", "Tavuk şiş + köz domates biber + cips", "Ispanak sote", "Salçalı makarna", "Karışık salata"] },
+      { day: 27, weekday: "Salı", breakfast: ["Haşlanmış yumurta", "Patates kızartması", "Börek", "Beyaz peynir"], dinner: ["Toyga / Domates çorba", "Etsiz kuru fasulye", "Sebze graten", "Pirinç pilavı", "Yoğurt", "Yaş pasta"] },
+      { day: 28, weekday: "Çarşamba", breakfast: ["Sucuklu omlet", "Patates kavurması", "Zeytinli / Peynirli açma", "Kaşar peyniri"], dinner: ["Ezogelin / Sebze çorba", "Çıtır tavuk + elma dilim patates", "Biber dolma", "Börek", "Mercimek köftesi"] },
+      { day: 29, weekday: "Perşembe", breakfast: ["Menemen", "Biber kızartması", "Mozaik kek", "Beyaz peynir"], dinner: ["Terbiyeli tavuk / Tarhana çorba", "Et çökertme", "Tavuk çökertme", "Sebze sote", "Bulgur pilavı", "Karışık salata"] },
+      { day: 30, weekday: "Cuma", breakfast: ["Sade omlet", "Patates kroket", "Simit", "Çeçil peyniri"], dinner: ["Yayla / Şehriye çorba", "Hamburger + ketçap + mayonez", "Karnabahar kızartma", "Patates kızartması", "Ayran veya meyve suyu"] },
+      { day: 31, weekday: "Cumartesi", breakfast: ["Haşlanmış yumurta", "Salçalı sosis", "Peynirli / Ispanaklı börek", "Kaşar peyniri"], dinner: ["Mercimek / Düğün çorba", "Çoban kavurma", "Nohut yemeği", "Sebzeli bulgur pilavı", "Sütlü irmik tatlısı"] }
     ];
 
     function tokatNow() {
@@ -387,7 +402,7 @@
     const state = {
       meal: initialTime.hour >= 6 && initialTime.hour < 12 ? "breakfast" : "dinner",
       view: "daily",
-      selectedDay: initialTime.year === 2026 && initialTime.month === 9 && initialTime.day >= 14 && initialTime.day <= 30 ? initialTime.day : 14
+      selectedDay: initialTime.year === 2026 && initialTime.month === 10 && initialTime.day >= 1 && initialTime.day <= 31 ? initialTime.day : 1
     };
     const mealMeta = {
       breakfast: { label: "Kahvaltı", glyph: "☀️", hours: "06.00–12.00", color: "var(--breakfast)", soft: "var(--breakfast-soft)" },
@@ -398,8 +413,8 @@
     function renderDateRail() {
       const current = tokatNow();
       el("dateRail").innerHTML = menu.map(item => {
-        const isToday = current.year === 2026 && current.month === 9 && current.day === item.day;
-        return `<button type="button" class="date-chip ${state.selectedDay === item.day ? "is-active" : ""}" data-day="${item.day}" ${isToday ? 'aria-current="date"' : ''} aria-label="${item.day} Eylül ${item.weekday}"><small>${item.weekday.slice(0,3)}</small><strong>${item.day}</strong></button>`;
+        const isToday = current.year === 2026 && current.month === 10 && current.day === item.day;
+        return `<button type="button" class="date-chip ${state.selectedDay === item.day ? "is-active" : ""}" data-day="${item.day}" ${isToday ? 'aria-current="date"' : ''} aria-label="${item.day} Ekim ${item.weekday}"><small>${item.weekday.slice(0,3)}</small><strong>${item.day}</strong></button>`;
       }).join("");
       el("dateRail").querySelectorAll(".date-chip").forEach(button => button.addEventListener("click", () => {
         state.selectedDay = Number(button.dataset.day); state.view = "daily"; syncViewButtons(); render();
@@ -411,10 +426,10 @@
       const fixed = state.meal === "breakfast" ? sharedBreakfast : sharedDinner;
       const list = [...item[state.meal].map(text => ({ text, fixed: false })), ...fixed.map(text => ({ text, fixed: true }))];
       const current = tokatNow();
-      const isToday = current.year === 2026 && current.month === 9 && current.day === item.day;
+      const isToday = current.year === 2026 && current.month === 10 && current.day === item.day;
       return `<article class="menu-card" style="--meal-color:${meta.color};--meal-soft:${meta.soft};animation-delay:${Math.min(index * 30, 240)}ms">
         ${isToday ? '<span class="today-flag">BUGÜN</span>' : ''}
-        <div class="card-date"><div><p class="weekday">${item.weekday}</p><div class="day">${item.day}</div><span class="month">Eylül 2026</span></div><span class="meal-badge"><span aria-hidden="true">${meta.glyph}</span>${meta.label}</span></div>
+        <div class="card-date"><div><p class="weekday">${item.weekday}</p><div class="day">${item.day}</div><span class="month">Ekim 2026</span></div><span class="meal-badge"><span aria-hidden="true">${meta.glyph}</span>${meta.label}</span></div>
         <ol class="menu-list">${list.map((dish, i) => `<li class="${dish.fixed ? "fixed-item" : ""}"><span class="dish-index">${i + 1}</span><span>${dish.text}</span></li>`).join("")}</ol>
       </article>`;
     }
@@ -431,10 +446,10 @@
       el("dateRailWrap").hidden = state.view === "monthly";
       el("menuGrid").className = `menu-grid ${state.view === "daily" ? "daily" : ""}`;
       el("menuGrid").innerHTML = shown.map(cardTemplate).join("");
-      el("resultTitle").textContent = state.view === "daily" ? `${selected.day} Eylül · ${selected.weekday}` : `Eylül ayı ${meta.label.toLocaleLowerCase("tr-TR")}`;
-      el("resultSubtitle").textContent = state.view === "daily" ? `${meta.label} · ${meta.hours}` : `14–30 Eylül 2026 · ${meta.hours}`;
+      el("resultTitle").textContent = state.view === "daily" ? `${selected.day} Ekim · ${selected.weekday}` : `Ekim ayı ${meta.label.toLocaleLowerCase("tr-TR")}`;
+      el("resultSubtitle").textContent = state.view === "daily" ? `${meta.label} · ${meta.hours}` : `1–31 Ekim 2026 · ${meta.hours}`;
       el("resultCount").textContent = state.view === "daily" ? `${shown[0][state.meal].length + (state.meal === "breakfast" ? sharedBreakfast.length : sharedDinner.length)} kalem` : `${shown.length} gün`;
-      el("introSummary").textContent = state.view === "daily" ? `${selected.day} Eylül ${selected.weekday} için ${meta.label.toLocaleLowerCase("tr-TR")} menüsü gösteriliyor · ${meta.hours}.` : `${shown.length} günlük ${meta.label.toLocaleLowerCase("tr-TR")} menüsünün tamamı açık.`;
+      el("introSummary").textContent = state.view === "daily" ? `${selected.day} Ekim ${selected.weekday} için ${meta.label.toLocaleLowerCase("tr-TR")} menüsü gösteriliyor · ${meta.hours}.` : `${shown.length} günlük ${meta.label.toLocaleLowerCase("tr-TR")} menüsünün tamamı açık.`;
       const hour = tokatNow().hour;
       el("statusPill").textContent = hour >= 6 && hour < 12 ? "Kahvaltı saati" : hour >= 16 && hour < 22 ? "Akşam yemeği saati" : "Menü yayında";
       requestAnimationFrame(() => { const active = el("dateRail").querySelector(".is-active"); if (active && state.view === "daily") active.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" }); });
