@@ -30,11 +30,11 @@ Geri dönüş: hatalı değişikliği `git revert` ile geri al, kontrolleri çal
 Aktarım öncesi Sites kaynak commit'i: `8b4c228156bab1af65b25243c855a367784c3479`.
 Eski Sites yayını: https://tokat-kyk-menu-2026.tasdelennusretcan58.chatgpt.site
 Yeni yayın adresi: https://cantsdlnn.github.io/tokat-kyk-menu/
-5 Kasım 2026 durumu: GitHub Actions build ve deploy başarılı. GitHub Pages özel alan adı `tokatkykmenubc.com` olarak kaydedildi. TurkTicaret DNS geçişi BEKLİYOR; alan adı hâlâ eski Sites yayınına gidiyor. GitHub Pages'in github.io adresi özel alan adına yönlenebilir. Eski yayın geçiş doğrulanmadan kaldırılmaz. GitHub hesabı ve depo kurulumu tamamlandı; Claude hesabında Code oturumu açma/proje seçimi kullanıcıda.
+5 Kasım 2026 durumu: GitHub Actions build ve deploy başarılı. Kullanıcı TurkTicaret'e erişemediğinden alan adı geçişi BEKLİYOR. GitHub Pages'teki bekleyen özel alan adı ayarı kaldırıldı; güncellenen uygulama HTTPS üzerinden `https://cantsdlnn.github.io/tokat-kyk-menu/` adresinde yayınlanır. `tokatkykmenubc.com` eski Sites yayınına gider ve GitHub değişikliklerini almaz. GitHub hesabı ve depo kurulumu tamamlandı; Claude hesabında Code oturumu açma/proje seçimi kullanıcıda.
 
 ### DNS geçişinde kalan adım
 
-TurkTicaret'te `tokatkykmenubc.com` alan adının DNS yönetiminde kök (`@`) A kayıtlarını aşağıdaki dört kayıtla değiştir:
+TurkTicaret erişimi geri geldiğinde önce GitHub Pages ayarlarında özel alan adını yeniden `tokatkykmenubc.com` yap; ardından TurkTicaret'te alan adının DNS yönetiminde kök (`@`) A kayıtlarını aşağıdaki dört kayıtla değiştir:
 
 | Tür | Ad | Değer |
 | --- | --- | --- |

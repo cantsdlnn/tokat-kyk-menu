@@ -1,6 +1,8 @@
 # Tokat KYK Yemek Menüsü
 
-**Canlı site:** [https://tokatkykmenubc.com](https://tokatkykmenubc.com)
+**Güncel uygulama:** [Tokat KYK Menü](https://cantsdlnn.github.io/tokat-kyk-menu/)
+
+Alan adı geçişi bekleniyor; `tokatkykmenubc.com` henüz eski yayına bağlı.
 
 Tokat Gençlik ve Spor İl Müdürlüğünün kahvaltı ve akşam yemeği menülerini gün gün veya aylık olarak gösteren responsive web uygulaması. Menüler `data/menus/YYYY-MM.json` dosyalarından üretilir.
 
