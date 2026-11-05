@@ -18,10 +18,18 @@ Yeni ay için önceki JSON biçimini örnek al, yemekleri yeni kaynak görseller
 
 ## Bilinen veri sınırı
 
-Başlangıçtaki tek tam veri Ekim 2026'dır. Kasım menüsü henüz sağlanmadı.
+Mevcut aylar: Ekim 2026 ve Kasım 2026.
+
+Kasım 2026, 5 Kasım 2026'da pano fotoğraflarından aktarılıp yayımlandı (PR #1). Fotoğraftaki parlama nedeniyle şu hücreler kullanıcının izniyle en iyi okumayla dolduruldu; pano tekrar görülürse doğrula:
+- 10 Kasım kahvaltı: "Salçalı sosis" (kelime "…lı Sosis" diye bitiyor; "Sucuklu yumurta" kullanıcı tarafından düzeltildi).
+- 15 Kasım akşam: "Bulgur pilavı" ("Bu…" diye başlıyor). Altındaki iki satır okunamadığı için eklenmedi.
+- 21 Kasım akşam: "Ekmek arası tavuk (söğüş ile)". "Tavuk"tan sonraki kelime okunamadı.
+
 Ekim verisi eski canlı yayından aynen taşındı; yeni bir fotoğraf doğrulaması yapılmadı. Önceki transkripsiyonda 12 Ekim akşam tantuni satırları ile 18 Ekim domatesli bulgur pilavı/kuru cacık satırları yansımalıydı. 12 Ekim tantuni okuması kullanıcıya daha düşük güvenle bildirilmişti; orijinal görseller tekrar gelirse ayrıca doğrula.
 
 ## Yayın
+
+Yerel Windows makinesinde Git (`C:\Program Files\Git\cmd\git.exe`) ve GitHub CLI (`C:\Program Files\GitHub CLI\gh.exe`) kurulu; `gh` cantsdlnn hesabıyla oturum açmış ve `gh auth setup-git` çalıştırılmış durumda. Araçlar PowerShell PATH'inde olmayabilir; tam yol ve `&` ile çağır.
 
 PR açılışında menü doğrulama, test ve build çalışır. Main'e birleştirilince GitHub Actions aynı kontrollerden sonra GitHub Pages'i günceller. Hata varsa yayın adımı çalışmaz. Başarılı sonucu Actions'tan kontrol et; yalnızca push başarılı diye yayını tamamlanmış sayma.
 
