@@ -5,7 +5,7 @@ import path from 'node:path';
 import { root } from './validate-menus.mjs';
 
 const base = path.resolve(root, 'dist');
-const mime = { '.html': 'text/html; charset=utf-8', '.png': 'image/png', '.ttf': 'font/ttf', '.js': 'text/javascript; charset=utf-8', '.webmanifest': 'application/manifest+json' };
+const mime = { '.html': 'text/html; charset=utf-8', '.png': 'image/png', '.webp': 'image/webp','.ttf': 'font/ttf', '.js': 'text/javascript; charset=utf-8', '.webmanifest': 'application/manifest+json' };
 createServer(async (req, res) => {
   try {
     const url = new URL(req.url, 'http://localhost');
