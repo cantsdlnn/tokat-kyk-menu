@@ -6,8 +6,10 @@
   <meta name="theme-color" content="#153f3a">
   <meta name="description" content="Tokat KYK yurtları kahvaltı ve akşam yemeği menüsü.">
   <title>Tokat KYK Yemek Menüsü</title>
-  <link rel="icon" type="image/png" href="assets/menu-trays.png?v=6">
-  <link rel="manifest" href="manifest.webmanifest?v=6">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png?v=7">
+  <link rel="apple-touch-icon" href="assets/icon-192.png?v=7">
+  <link rel="manifest" href="manifest.webmanifest?v=7">
+  <link rel="preload" as="image" type="image/webp" imagesrcset="assets/menu-trays-640.webp?v=7 640w, assets/menu-trays-1024.webp?v=7 1024w, assets/menu-trays-1536.webp?v=7 1536w" imagesizes="(max-width: 680px) 104vw, (max-width: 940px) min(78vw, 630px), min(58vw, 680px)" fetchpriority="high">
   <style>
     @font-face { font-family: "DM Serif Display"; src: url("assets/fonts/dm-serif-display.ttf") format("truetype"); font-weight: 400; font-display: swap; }
     @font-face { font-family: "Manrope"; src: url("assets/fonts/manrope-400.ttf") format("truetype"); font-weight: 400; font-display: swap; }
@@ -97,7 +99,7 @@
       background: var(--deep);
       box-shadow: 0 8px 18px rgba(21,63,58,.18);
     }
-    .brand-picture img { width: 100%; height: 100%; object-fit: cover; object-position: 22% 33%; transform: scale(1.6); }
+    .brand-picture img { width: 100%; height: 100%; object-fit: cover; }
     .brand strong { display: block; font-size: 1rem; line-height: 1.2; letter-spacing: -.025em; }
     .brand span { color: var(--muted); font-size: .8rem; font-weight: 600; }
 
@@ -503,7 +505,7 @@
   <div class="app-shell">
     <header class="topbar">
       <div class="brand">
-        <div class="brand-picture"><img src="assets/menu-trays.png?v=6" alt=""></div>
+        <div class="brand-picture"><img src="assets/icon-128.webp?v=7" width="128" height="128" alt="" decoding="async"></div>
         <div><strong>Tokat KYK Menü</strong><span id="monthLabel"></span></div>
       </div>
       <span class="status-pill" id="statusPill">Menü yayında</span>
@@ -520,10 +522,10 @@
         <p class="reveal" style="--d:420ms" id="introSummary">Kahvaltı ve akşam menüsünü gün gün ya da ayın tamamında görüntüle.</p>
         <button type="button" class="live reveal" style="--d:540ms" id="liveChip">
           <svg class="live-ring" viewBox="0 0 36 36" aria-hidden="true"><circle class="track" cx="18" cy="18" r="15"/><circle class="bar" id="liveBar" cx="18" cy="18" r="15"/></svg>
-          <span><strong id="liveTitle">Servis saatleri</strong><small id="liveDetail">Kahvaltı 06.00–12.00 · Akşam 16.00–22.00</small></span>
+          <span><strong id="liveTitle">Servis saatleri</strong><small id="liveDetail">Kahvaltı 06.00–12.00 · Akşam 16.00–23.00</small></span>
         </button>
       </div>
-      <img class="hero-art" src="assets/menu-trays.png?v=6" alt="Kahvaltı ve akşam yemeği tepsilerinin el çizimi illüstrasyonu">
+      <img class="hero-art" src="assets/menu-trays-1024.webp?v=7" srcset="assets/menu-trays-640.webp?v=7 640w, assets/menu-trays-1024.webp?v=7 1024w, assets/menu-trays-1536.webp?v=7 1536w" sizes="(max-width: 680px) 104vw, (max-width: 940px) min(78vw, 630px), min(58vw, 680px)" width="1536" height="1024" fetchpriority="high" decoding="async" alt="Kahvaltı ve akşam yemeği tepsilerinin el çizimi illüstrasyonu">
     </section>
 
     <main class="workspace">
@@ -533,7 +535,7 @@
         <div class="segment meal" role="tablist" aria-label="Öğün seçimi">
           <span class="seg-pill" aria-hidden="true"></span>
           <button type="button" data-meal="breakfast" role="tab" aria-selected="true"><span>☀️ Kahvaltı</span><span class="meal-hours">06.00–12.00</span></button>
-          <button type="button" data-meal="dinner" role="tab" aria-selected="false"><span>🌙 Akşam</span><span class="meal-hours">16.00–22.00</span></button>
+          <button type="button" data-meal="dinner" role="tab" aria-selected="false"><span>🌙 Akşam</span><span class="meal-hours">16.00–23.00</span></button>
         </div>
         <div class="segment view" role="tablist" aria-label="Liste görünümü">
           <span class="seg-pill" aria-hidden="true"></span>
@@ -615,7 +617,7 @@
     };
     const mealMeta = {
       breakfast: { label: "Kahvaltı", glyph: "☀️", hours: "06.00–12.00", color: "var(--breakfast)", soft: "var(--breakfast-soft)", theme: "#153f3a" },
-      dinner: { label: "Akşam yemeği", glyph: "🌙", hours: "16.00–22.00", color: "var(--dinner)", soft: "var(--dinner-soft)", theme: "#0c222b" }
+      dinner: { label: "Akşam yemeği", glyph: "🌙", hours: "16.00–23.00", color: "var(--dinner)", soft: "var(--dinner-soft)", theme: "#0c222b" }
     };
     const el = id => document.getElementById(id);
     const searchTerm = () => fold(state.query.trim());
@@ -783,10 +785,10 @@
     function serviceStatus(now) {
       const minutes = now.hour * 60 + now.minute;
       if (minutes >= 360 && minutes < 720) return { meal: "breakfast", live: true, left: 720 - minutes, progress: (minutes - 360) / 360 };
-      if (minutes >= 960 && minutes < 1320) return { meal: "dinner", live: true, left: 1320 - minutes, progress: (minutes - 960) / 360 };
+      if (minutes >= 960 && minutes < 1380) return { meal: "dinner", live: true, left: 1380 - minutes, progress: (minutes - 960) / 420 };
       if (minutes >= 720 && minutes < 960) return { meal: "dinner", live: false, left: 960 - minutes, progress: (minutes - 720) / 240 };
-      const left = minutes >= 1320 ? 1440 - minutes + 360 : 360 - minutes;
-      return { meal: "breakfast", live: false, left, progress: 1 - left / 480, tomorrow: minutes >= 1320 };
+      const left = minutes >= 1380 ? 1440 - minutes + 360 : 360 - minutes;
+      return { meal: "breakfast", live: false, left, progress: 1 - left / 420, tomorrow: minutes >= 1380 };
     }
 
     function duration(minutes) {
@@ -803,7 +805,7 @@
       el("liveTitle").textContent = status.live ? `${label} servisi sürüyor` : `${label} servisine ${duration(status.left)}`;
       el("liveDetail").textContent = status.live ? `${duration(status.left)} kaldı · ${mealMeta[status.meal].hours}` : `${status.tomorrow ? "Yarın " : ""}${mealMeta[status.meal].hours} · menüyü gör`;
       el("liveBar").style.strokeDashoffset = String(94.25 * (1 - Math.min(Math.max(status.progress, 0), 1)));
-      el("statusPill").textContent = now.hour >= 6 && now.hour < 12 ? "Kahvaltı saati" : now.hour >= 16 && now.hour < 22 ? "Akşam yemeği saati" : "Menü yayında";
+      el("statusPill").textContent = now.hour >= 6 && now.hour < 12 ? "Kahvaltı saati" : now.hour >= 16 && now.hour < 23 ? "Akşam yemeği saati" : "Menü yayında";
     }
 
     function goToDay(day, meal) {

@@ -26,7 +26,7 @@ Kullanıcıyla Türkçe konuş. Bu depo Tokat KYK yurtlarının kahvaltı ve ak�
 
 - Saat dilimi `Europe/Istanbul`.
 - Açılışta 06.00 dahil–12.00 hariç kahvaltı; diğer saatlerde akşam seçili.
-- Akşam servis saati 16.00–22.00. Kullanıcı elle öğün değiştirebilir.
+- Akşam servis saati 16.00–23.00. Kullanıcı elle öğün değiştirebilir.
 - Başlık “Bugün menüde ne var?”, sekmeler ☀️ ve 🌙.
 - Günlük ve aylık görünüm, telefon/masaüstü uyumu, mevcut tasarım.
 - Güncel ay yoksa eski ayı bugünmüş gibi sunma; mevcut uyarıyı koru.
