@@ -37,12 +37,17 @@ Geri dönüş: hatalı değişikliği `git revert` ile geri al, kontrolleri çal
 
 Aktarım öncesi Sites kaynak commit'i: `8b4c228156bab1af65b25243c855a367784c3479`.
 Eski Sites yayını: https://tokat-kyk-menu-2026.tasdelennusretcan58.chatgpt.site
-Yeni yayın adresi: https://cantsdlnn.github.io/tokat-kyk-menu/
-5 Kasım 2026 durumu: GitHub Actions build ve deploy başarılı. Kullanıcı TurkTicaret'e erişemediğinden alan adı geçişi BEKLİYOR. GitHub Pages'teki bekleyen özel alan adı ayarı kaldırıldı; güncellenen uygulama HTTPS üzerinden `https://cantsdlnn.github.io/tokat-kyk-menu/` adresinde yayınlanır. `tokatkykmenubc.com` eski Sites yayınına gider ve GitHub değişikliklerini almaz. GitHub hesabı ve depo kurulumu tamamlandı; Claude hesabında Code oturumu açma/proje seçimi kullanıcıda.
+Canlı adres: https://tokatkykmenubc.com (GitHub Pages). `https://cantsdlnn.github.io/tokat-kyk-menu/` ve `www.tokatkykmenubc.com` bu adrese yönlenir.
 
-### DNS geçişinde kalan adım
+### Alan adı geçişi (5 Kasım 2026'da tamamlandı)
 
-TurkTicaret erişimi geri geldiğinde önce GitHub Pages ayarlarında özel alan adını yeniden `tokatkykmenubc.com` yap; ardından TurkTicaret'te alan adının DNS yönetiminde kök (`@`) A kayıtlarını aşağıdaki dört kayıtla değiştir:
+Alan adı Turkticaret.net'te kayıtlı (kayıt 25 Eylül 2026, bitiş 25 Eylül 2027); ad sunucuları NS1/NS2/NS3.TURKTICARET.NET. Alan adı kullanıcının ayrı bir Turkticaret hesabındadır; giriş ve DNS paneli kullanıcıdadır.
+
+- Turkticaret DNS Yönetimi'nde kök A kayıtları aşağıdaki dört GitHub Pages adresiyle değiştirildi, `www` CNAME → `cantsdlnn.github.io`. Turkticaret panelde kaydedilen değişikliği ad sunucularına yaklaşık 50 dakikada yansıttı (SOA seri numarası değişmedi); hemen yansımazsa bekle, sonra destek talebi aç.
+- GitHub Pages özel alan adı `tokatkykmenubc.com`; HTTPS sertifikası onaylı (www dahil, GitHub otomatik yeniler), `https_enforced: true`, http → https yönlendirmesi çalışıyor.
+- Eski Sites yayınına ait `_openai-site-verification` ve `_cf-custom-hostname` TXT kayıtları geri dönüş için şimdilik korunuyor; kullanıcı isterse silinebilir.
+
+Güncel kök A kayıtları:
 
 | Tür | Ad | Değer |
 | --- | --- | --- |
@@ -51,9 +56,9 @@ TurkTicaret erişimi geri geldiğinde önce GitHub Pages ayarlarında özel alan
 | A | @ | 185.199.110.153 |
 | A | @ | 185.199.111.153 |
 
-Geçiş öncesi kök A kayıtları: `172.66.3.26` ve `162.159.143.30`. Bu iki kök web yönlendirmesi değiştirilir; posta (MX), TXT ve diğer hizmet kayıtları korunur. `www` kullanılacaksa CNAME hedefi `cantsdlnn.github.io` olmalıdır (repo adı veya https ekleme). Ad sunucularını değiştirmek gerekmez.
+Geçiş öncesi kök A kayıtları (eski Sites yayınına geri dönüş için): `172.66.3.26` ve `162.159.143.30`. Alan adında MX kaydı yok.
 
-Sonrasında DNS sonuçlarını ve `gh api repos/cantsdlnn/tokat-kyk-menu/pages` yanıtını kontrol et. Sertifika hazır olduğunda GitHub Pages'te HTTPS zorlamasını aç. DNS ve sertifika hazır olmadan HTTPS geçişi tamamlandı deme. Başlangıçta sertifika beklenirken `https_enforced` false dönebilir; geçiş sonunda true olmalı.
+Durum kontrolü: `gh api repos/cantsdlnn/tokat-kyk-menu/pages` ve `Resolve-DnsName tokatkykmenubc.com -Type A -Server ns1.turkticaret.net -DnsOnly`.
 
 Resmî kayıt değerleri: https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
 
