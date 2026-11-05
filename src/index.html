@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr">
+<html lang="tr" class="preload">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -31,7 +31,17 @@
       --cream: #fff3d8;
       --deep: #153f3a;
       --shadow: 0 22px 60px rgba(28, 66, 59, .10);
+      /* Hareket kimliği: tek imza eğrisi, üç süre */
+      --ease: cubic-bezier(.2, 0, 0, 1);
+      --ease-settle: cubic-bezier(.25, 1.1, .4, 1);
+      --t-quick: 160ms;
+      --t-std: 280ms;
+      --t-slow: 450ms;
+      --t-scene: 900ms;
     }
+    body[data-meal="breakfast"] { --meal: var(--breakfast); --meal-soft: var(--breakfast-soft); }
+    body[data-meal="dinner"] { --meal: var(--dinner); --meal-soft: var(--dinner-soft); }
+    .preload *, .preload *::before, .preload *::after { transition: none !important; }
 
     * { box-sizing: border-box; }
     html { max-width: 100%; scroll-behavior: smooth; }
@@ -50,10 +60,20 @@
       line-height: 1.55;
       text-rendering: optimizeLegibility;
     }
+    /* İnce kâğıt dokusu */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      pointer-events: none;
+      opacity: .045;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
 
     img { max-width: 100%; }
     button { font: inherit; -webkit-tap-highlight-color: transparent; }
-    button:focus-visible { outline: 3px solid rgba(240,173,66,.52); outline-offset: 3px; }
+    button:focus-visible, input:focus-visible, .menu-card:focus-visible { outline: 3px solid rgba(240,173,66,.52); outline-offset: 3px; }
 
     .app-shell { width: min(1220px, 100%); margin: 0 auto; padding: 20px clamp(16px, 4vw, 42px) 68px; }
 
@@ -97,23 +117,24 @@
     }
     .status-pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #37a66b; box-shadow: 0 0 0 4px rgba(55,166,107,.12); }
 
+    /* ---------- Hero: öğüne göre gün doğumu / gece ---------- */
     .hero {
       position: relative;
       overflow: hidden;
       display: grid;
       grid-template-columns: minmax(0, .9fr) minmax(360px, .8fr);
       align-items: center;
-      min-height: 330px;
+      min-height: 360px;
       padding: clamp(28px, 5vw, 56px);
       border-radius: 36px;
       color: white;
       background:
+        radial-gradient(ellipse at 74% 118%, rgba(244,150,72,.50), transparent 58%),
         radial-gradient(circle at 76% 20%, rgba(240,173,66,.22), transparent 18rem),
         linear-gradient(135deg, #0e3531 0%, #1a514a 100%);
       box-shadow: var(--shadow);
       isolation: isolate;
     }
-
     .hero::before {
       content: "";
       position: absolute;
@@ -126,6 +147,71 @@
       box-shadow: 0 0 0 48px rgba(255,255,255,.025), 0 0 0 96px rgba(255,255,255,.018);
       z-index: -1;
     }
+    .sky-night, .sun, .moon, .stars { position: absolute; pointer-events: none; }
+    .sky-night {
+      inset: 0;
+      z-index: -3;
+      opacity: 0;
+      background:
+        radial-gradient(circle at 84% 14%, rgba(255,236,190,.18), transparent 15rem),
+        radial-gradient(ellipse at 60% 130%, rgba(23,124,110,.45), transparent 60%),
+        linear-gradient(160deg, #0a1c25 0%, #0f2d37 55%, #143f3c 100%);
+      transition: opacity var(--t-scene) var(--ease);
+    }
+    .sun {
+      right: 16%;
+      bottom: -120px;
+      z-index: -2;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,222,150,.95) 0%, rgba(255,178,92,.55) 34%, rgba(240,140,60,0) 68%);
+      transition: transform var(--t-scene) var(--ease), opacity var(--t-scene) var(--ease);
+    }
+    .moon {
+      top: 38px;
+      right: 11%;
+      z-index: -2;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      box-shadow: inset 14px -8px 0 0 #f6eed6;
+      filter: drop-shadow(0 0 18px rgba(255,240,200,.45));
+      opacity: 0;
+      transform: translateY(-36px) rotate(-12deg);
+      transition: transform var(--t-scene) var(--ease), opacity var(--t-scene) var(--ease);
+    }
+    .stars { inset: 0; z-index: -2; opacity: 0; transition: opacity var(--t-scene) var(--ease); }
+    .stars::before, .stars::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: transparent;
+      box-shadow:
+        8vw 40px rgba(255,255,255,.8), 22vw 18px rgba(255,255,255,.55), 31vw 72px rgba(255,255,255,.7),
+        44vw 28px rgba(255,255,255,.5), 52vw 94px rgba(255,255,255,.8), 61vw 46px rgba(255,255,255,.6),
+        69vw 120px rgba(255,255,255,.45), 77vw 64px rgba(255,255,255,.7), 86vw 150px rgba(255,255,255,.5),
+        14vw 130px rgba(255,255,255,.4), 37vw 160px rgba(255,255,255,.5), 57vw 190px rgba(255,255,255,.4);
+      animation: twinkle 4.8s ease-in-out infinite alternate;
+    }
+    .stars::after {
+      transform: translate(3vw, 22px);
+      box-shadow:
+        4vw 90px rgba(255,255,255,.5), 18vw 60px rgba(255,255,255,.7), 27vw 120px rgba(255,255,255,.4),
+        40vw 84px rgba(255,255,255,.6), 49vw 12px rgba(255,255,255,.7), 66vw 20px rgba(255,255,255,.5),
+        74vw 170px rgba(255,255,255,.4), 82vw 36px rgba(255,255,255,.6);
+      animation-duration: 6.2s;
+      animation-delay: -2s;
+    }
+    @keyframes twinkle { from { opacity: .45; } to { opacity: 1; } }
+    body[data-meal="dinner"] .sky-night,
+    body[data-meal="dinner"] .stars { opacity: 1; }
+    body[data-meal="dinner"] .sun { opacity: 0; transform: translateY(45%) scale(.85); }
+    body[data-meal="dinner"] .moon { opacity: 1; transform: none; }
 
     .hero-copy { position: relative; z-index: 2; max-width: 620px; }
     .kicker { margin: 0 0 12px; color: #f7c86d; font-size: .78rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
@@ -138,6 +224,10 @@
       line-height: .92;
       letter-spacing: -.045em;
     }
+    .hero h1 .w { display: inline-block; animation: word-in .8s var(--ease) backwards; animation-delay: calc(var(--i) * 80ms + 80ms); }
+    .hero .reveal { animation: fade-up .7s var(--ease) backwards; animation-delay: var(--d, 420ms); }
+    @keyframes word-in { from { opacity: 0; transform: translateY(.38em) rotate(2deg); } to { opacity: 1; transform: none; } }
+    @keyframes fade-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
     .hero p { max-width: 480px; margin: 20px 0 0; color: rgba(255,255,255,.78); font-size: clamp(.95rem, 2vw, 1.08rem); }
 
     .hero-art {
@@ -148,9 +238,40 @@
       height: auto;
       filter: drop-shadow(0 28px 32px rgba(0,0,0,.24));
       transform: rotate(-2deg);
+      translate: calc(var(--px, 0) * -14px) calc(var(--py, 0) * -10px);
+      transition: translate .8s var(--ease);
+      animation: float 7s ease-in-out infinite alternate;
       user-select: none;
       pointer-events: none;
     }
+    @keyframes float { from { transform: rotate(-2deg) translateY(0); } to { transform: rotate(-1deg) translateY(-10px); } }
+
+    /* Canlı servis şeridi */
+    .live {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 24px;
+      padding: 9px 18px 9px 9px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 20px;
+      color: white;
+      background: rgba(255,255,255,.09);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      text-align: left;
+      cursor: pointer;
+      transition: background-color var(--t-std) var(--ease), transform var(--t-quick) var(--ease), border-color var(--t-std) var(--ease);
+    }
+    .live:hover { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.28); transform: translateY(-1px); }
+    .live:active { transform: scale(.97); }
+    .live-ring { width: 40px; height: 40px; flex: 0 0 auto; transform: rotate(-90deg); }
+    .live-ring circle { fill: none; stroke-width: 3.2; }
+    .live-ring .track { stroke: rgba(255,255,255,.16); }
+    .live-ring .bar { stroke: #f7c86d; stroke-linecap: round; stroke-dasharray: 94.25; stroke-dashoffset: 94.25; transition: stroke-dashoffset 1s var(--ease), stroke var(--t-std) var(--ease); }
+    .live.is-live .live-ring .bar { stroke: #8fe5bd; }
+    .live strong { display: block; font-size: .9rem; line-height: 1.25; }
+    .live small { display: block; color: rgba(255,255,255,.72); font-size: .78rem; font-weight: 700; }
 
     [hidden] { display: none !important; }
     .month-picker { display: flex; gap: 12px; align-items: center; margin: 30px 0 14px; font-weight: 700; }
@@ -169,9 +290,23 @@
       backdrop-filter: blur(16px);
     }
 
-    .segment { display: grid; min-width: 0; grid-template-columns: 1fr 1fr; gap: 7px; padding: 5px; border-radius: 17px; background: #edf0eb; }
+    /* Sekmeler: kayan beyaz gösterge */
+    .segment { position: relative; display: grid; min-width: 0; grid-template-columns: 1fr 1fr; gap: 7px; padding: 5px; border-radius: 17px; background: #edf0eb; }
     .segment.view { grid-template-columns: repeat(2, auto); }
+    .seg-pill {
+      position: absolute;
+      top: 5px;
+      bottom: 5px;
+      left: 0;
+      width: 0;
+      border-radius: 12px;
+      background: white;
+      box-shadow: 0 5px 15px rgba(24,51,47,.09);
+      transition: transform var(--t-slow) var(--ease-settle), width var(--t-slow) var(--ease-settle);
+    }
     .segment button {
+      position: relative;
+      z-index: 1;
       min-width: 0;
       min-height: 47px;
       border: 0;
@@ -182,19 +317,61 @@
       font-size: .9rem;
       font-weight: 800;
       cursor: pointer;
-      transition: transform .18s ease, color .18s ease, background .18s ease, box-shadow .18s ease;
+      transition: transform var(--t-quick) var(--ease), color var(--t-std) var(--ease);
     }
     .segment button:hover { transform: translateY(-1px); }
-    .segment button[aria-selected="true"] { color: var(--ink); background: white; box-shadow: 0 5px 15px rgba(24,51,47,.09); }
-    body[data-meal="breakfast"] .segment.meal button[aria-selected="true"] { color: var(--breakfast); }
-    body[data-meal="dinner"] .segment.meal button[aria-selected="true"] { color: var(--dinner); }
+    .segment button:active { transform: scale(.96); }
+    .segment button[aria-selected="true"] { color: var(--ink); }
+    .segment.meal button[aria-selected="true"] { color: var(--meal); }
     .segment.meal button { display: flex; align-items: center; justify-content: center; gap: 7px; }
     .meal-hours { font-size: .76rem; font-weight: 700; opacity: .74; white-space: nowrap; }
+
+    /* Yemek arama */
+    .search {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-top: 12px;
+    }
+    .search svg { position: absolute; left: 18px; width: 19px; height: 19px; color: var(--muted); pointer-events: none; }
+    .search input {
+      width: 100%;
+      min-height: 54px;
+      padding: 0 52px 0 50px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      color: var(--ink);
+      background: rgba(255,254,250,.9);
+      font: inherit;
+      font-weight: 700;
+      font-size: .95rem;
+      transition: border-color var(--t-std) var(--ease), box-shadow var(--t-std) var(--ease), background-color var(--t-std) var(--ease);
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .search input::placeholder { color: #8d9a95; font-weight: 600; }
+    .search input::-webkit-search-cancel-button { display: none; }
+    .search input:focus { outline: none; border-color: var(--meal); background: white; box-shadow: 0 0 0 4px color-mix(in srgb, var(--meal) 14%, transparent); }
+    .search-clear {
+      position: absolute;
+      right: 9px;
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 12px;
+      color: var(--muted);
+      background: #edf0eb;
+      font-size: 1.15rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    mark { padding: 0 3px; border-radius: 5px; color: inherit; background: rgba(240,173,66,.38); }
 
     .date-rail-wrap { position: relative; margin: 22px 0 12px; }
     .date-rail { display: flex; min-width: 0; gap: 10px; overflow-x: auto; overscroll-behavior-x: contain; padding: 3px 3px 12px; scrollbar-width: none; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; }
     .date-rail::-webkit-scrollbar { display: none; }
     .date-chip {
+      position: relative;
       min-width: 74px;
       min-height: 77px;
       flex: 0 0 auto;
@@ -208,22 +385,24 @@
       background: rgba(255,255,255,.74);
       cursor: pointer;
       scroll-snap-align: center;
-      transition: transform .18s ease, color .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+      transition: transform var(--t-quick) var(--ease), color var(--t-std) var(--ease), background-color var(--t-std) var(--ease), border-color var(--t-std) var(--ease), box-shadow var(--t-std) var(--ease);
     }
     .date-chip:hover { transform: translateY(-3px); box-shadow: 0 9px 22px rgba(24,51,47,.08); }
-    .date-chip small { color: var(--muted); font-size: .71rem; font-weight: 700; letter-spacing: .03em; }
+    .date-chip:active { transform: translateY(-1px) scale(.95); }
+    .date-chip small { color: var(--muted); font-size: .71rem; font-weight: 700; letter-spacing: .03em; transition: color var(--t-std) var(--ease); }
     .date-chip strong { font-family: "DM Serif Display", Georgia, serif; font-size: 1.5rem; font-weight: 400; line-height: 1; }
     .date-chip[aria-current="date"] { border-color: currentColor; }
-    body[data-meal="breakfast"] .date-chip.is-active { color: white; border-color: var(--breakfast); background: var(--breakfast); box-shadow: 0 10px 24px rgba(223,86,61,.26); }
-    body[data-meal="dinner"] .date-chip.is-active { color: white; border-color: var(--dinner); background: var(--dinner); box-shadow: 0 10px 24px rgba(23,124,110,.24); }
+    .date-chip[aria-current="date"]::after { content: ""; position: absolute; bottom: 8px; width: 5px; height: 5px; border-radius: 50%; background: var(--meal); }
+    .date-chip.is-active { color: white; border-color: var(--meal); background: var(--meal); box-shadow: 0 10px 24px color-mix(in srgb, var(--meal) 28%, transparent); }
     .date-chip.is-active small { color: rgba(255,255,255,.77); }
+    .date-chip.is-active::after { background: white; }
 
     .result-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin: 26px 3px 15px; }
     .result-head h2 { margin: 0; font-family: "DM Serif Display", Georgia, serif; font-size: clamp(1.9rem, 4vw, 3rem); font-weight: 400; line-height: 1; letter-spacing: -.025em; }
     .result-head p { margin: 7px 0 0; color: var(--muted); font-size: .88rem; font-weight: 600; }
     .count { padding: 7px 11px; border-radius: 999px; color: var(--muted); background: rgba(255,255,255,.72); font-size: .76rem; font-weight: 800; white-space: nowrap; }
 
-    .menu-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 17px; }
+    .menu-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 17px; touch-action: pan-y; }
     .menu-grid.daily { grid-template-columns: minmax(0, 1fr); }
     .menu-card {
       --meal-color: var(--breakfast);
@@ -234,19 +413,32 @@
       border: 1px solid var(--line);
       border-radius: 28px;
       background: var(--surface);
-      box-shadow: 0 14px 36px rgba(24,51,47,.065);
-      animation: rise .35s ease both;
+      box-shadow: 0 14px 36px rgba(24,51,47,.065), inset 0 1px 0 rgba(255,255,255,.9);
+      animation: rise .45s var(--ease) backwards;
+      transition: transform var(--t-std) var(--ease), box-shadow var(--t-std) var(--ease);
     }
+    .menu-grid:not(.daily) .menu-card:hover { transform: translateY(-4px); box-shadow: 0 22px 46px rgba(24,51,47,.11); }
+    .menu-card[data-goto] { cursor: pointer; }
     .menu-card::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--meal-color); opacity: .78; }
     .menu-grid.daily .menu-card { display: grid; grid-template-columns: minmax(240px, .38fr) 1fr; min-height: 370px; }
 
-    .card-date { padding: 23px 23px 17px 27px; color: white; background: var(--meal-color); }
+    .card-date { position: relative; overflow: hidden; padding: 23px 23px 17px 27px; color: white; background: var(--meal-color); isolation: isolate; }
     .menu-grid.daily .card-date { display: flex; flex-direction: column; justify-content: space-between; padding: clamp(28px, 5vw, 50px); }
+    .menu-grid.daily .card-date::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      z-index: -1;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), transparent 45%);
+      animation: drift 9s ease-in-out infinite alternate;
+    }
+    @keyframes drift { from { transform: translate(-6%, -4%) scale(1); } to { transform: translate(8%, 10%) scale(1.12); } }
     .card-date .weekday { margin: 0; color: rgba(255,255,255,.78); font-size: .75rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
     .card-date .day { margin-top: 1px; font-family: "DM Serif Display", Georgia, serif; font-size: 2.5rem; font-weight: 400; line-height: .9; }
     .menu-grid.daily .card-date .day { font-size: clamp(5rem, 10vw, 8rem); }
     .card-date .month { font-size: .83rem; font-weight: 700; }
     .meal-badge { display: inline-flex; align-items: center; gap: 7px; width: fit-content; margin-top: 18px; padding: 7px 10px; border: 1px solid rgba(255,255,255,.24); border-radius: 999px; color: white; background: rgba(255,255,255,.12); font-size: .76rem; font-weight: 800; }
+    .meal-glyph { display: inline-block; }
 
     .menu-list { list-style: none; margin: 0; padding: 16px 23px 25px 27px; }
     .menu-grid.daily .menu-list { display: grid; align-content: center; padding: clamp(28px, 5vw, 54px); }
@@ -255,7 +447,10 @@
     .menu-list li:last-child { border-bottom: 0; }
     .dish-index { display: grid; place-items: center; width: 26px; height: 26px; margin-top: 1px; border-radius: 9px; color: var(--meal-color); background: var(--meal-soft); font-size: .7rem; font-weight: 800; }
     .fixed-item { color: var(--muted) !important; font-weight: 600 !important; }
-    .today-flag { position: absolute; top: 17px; right: 17px; z-index: 2; padding: 6px 10px; border-radius: 999px; color: var(--ink); background: var(--cream); box-shadow: 0 5px 12px rgba(0,0,0,.08); font-size: .69rem; font-weight: 800; letter-spacing: .04em; }
+    .today-flag { position: absolute; top: 17px; right: 17px; z-index: 2; display: inline-flex; align-items: center; gap: 7px; padding: 6px 11px 6px 9px; border-radius: 999px; color: var(--ink); background: var(--cream); box-shadow: 0 5px 12px rgba(0,0,0,.08); font-size: .69rem; font-weight: 800; letter-spacing: .04em; }
+    .today-flag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #37a66b; animation: pulse 2.4s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(55,166,107,.45); } 50% { box-shadow: 0 0 0 6px rgba(55,166,107,0); } }
+    .swipe-hint { display: none; margin: 12px 0 0; color: var(--muted); font-size: .76rem; font-weight: 700; text-align: center; }
 
     .menu-note { display: flex; gap: 12px; align-items: center; margin-top: 27px; padding: 16px 18px; border: 1px solid #e7ddbf; border-radius: 19px; color: #635634; background: rgba(255,246,220,.74); font-size: .84rem; }
     .menu-note strong { flex: 0 0 auto; display: grid; place-items: center; width: 27px; height: 27px; border-radius: 50%; color: white; background: #b67a19; font-family: Georgia, serif; font-size: .9rem; }
@@ -263,7 +458,7 @@
 
     .footer { display: flex; justify-content: space-between; gap: 18px; margin-top: 33px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--muted); font-size: .78rem; font-weight: 600; }
     .empty { grid-column: 1 / -1; padding: 60px 24px; border: 1px dashed var(--line); border-radius: 24px; color: var(--muted); text-align: center; }
-    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
     @media (min-width: 1100px) {
       .date-rail { display: grid; grid-template-columns: repeat(16, minmax(0, 1fr)); overflow: visible; }
@@ -272,6 +467,7 @@
     @media (max-width: 940px) {
       .hero { grid-template-columns: 1fr; padding-bottom: 210px; }
       .hero-art { width: min(78%, 630px); right: -4%; bottom: -31%; }
+      .sun { right: 8%; bottom: -150px; }
       .menu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 680px) {
@@ -279,10 +475,13 @@
       .topbar { min-height: 52px; margin-bottom: 12px; }
       .brand-picture { width: 44px; height: 44px; border-radius: 14px; }
       .status-pill { display: none; }
-      .hero { min-height: 410px; padding: 26px 21px 195px; border-radius: 28px; }
+      .hero { min-height: 470px; padding: 26px 21px 195px; border-radius: 28px; }
       .hero h1 { font-size: clamp(2.55rem, 13vw, 3.35rem); }
       .hero p { margin-top: 15px; font-size: .91rem; }
       .hero-art { width: 104%; right: -12%; bottom: -12%; }
+      .moon { top: 26px; right: 22px; width: 46px; height: 46px; box-shadow: inset 10px -6px 0 0 #f6eed6; }
+      .sun { width: 240px; height: 240px; right: 4%; bottom: -70px; }
+      .live { margin-top: 18px; }
       .workspace { margin-top: -17px; }
       .control-panel { grid-template-columns: 1fr; gap: 9px; padding: 10px; border-radius: 21px; }
       .segment.view { grid-template-columns: 1fr 1fr; }
@@ -292,10 +491,11 @@
       .menu-grid.daily .menu-card { grid-template-columns: 1fr; min-height: 0; }
       .menu-grid.daily .card-date { min-height: 205px; }
       .menu-grid.daily .menu-list { padding: 25px; }
+      .menu-grid.daily + .swipe-hint { display: block; }
       .footer { flex-direction: column; }
     }
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
     }
   </style>
 </head>
@@ -309,11 +509,19 @@
       <span class="status-pill" id="statusPill">Menü yayında</span>
     </header>
 
-    <section class="hero" aria-labelledby="pageTitle">
+    <section class="hero" id="hero" aria-labelledby="pageTitle">
+      <span class="sky-night" aria-hidden="true"></span>
+      <span class="stars" aria-hidden="true"></span>
+      <span class="sun" aria-hidden="true"></span>
+      <span class="moon" aria-hidden="true"></span>
       <div class="hero-copy">
-        <p class="kicker" id="monthKicker"></p>
-        <h1 id="pageTitle">Bugün menüde ne var?</h1>
-        <p id="introSummary">Kahvaltı ve akşam menüsünü gün gün ya da ayın tamamında görüntüle.</p>
+        <p class="kicker reveal" style="--d:0ms" id="monthKicker"></p>
+        <h1 id="pageTitle"><span class="w" style="--i:0">Bugün</span> <span class="w" style="--i:1">menüde</span> <span class="w" style="--i:2">ne</span> <span class="w" style="--i:3">var?</span></h1>
+        <p class="reveal" style="--d:420ms" id="introSummary">Kahvaltı ve akşam menüsünü gün gün ya da ayın tamamında görüntüle.</p>
+        <button type="button" class="live reveal" style="--d:540ms" id="liveChip">
+          <svg class="live-ring" viewBox="0 0 36 36" aria-hidden="true"><circle class="track" cx="18" cy="18" r="15"/><circle class="bar" id="liveBar" cx="18" cy="18" r="15"/></svg>
+          <span><strong id="liveTitle">Servis saatleri</strong><small id="liveDetail">Kahvaltı 06.00–12.00 · Akşam 16.00–22.00</small></span>
+        </button>
       </div>
       <img class="hero-art" src="assets/menu-trays.png?v=6" alt="Kahvaltı ve akşam yemeği tepsilerinin el çizimi illüstrasyonu">
     </section>
@@ -323,14 +531,22 @@
       <label class="month-picker">Menü ayı <select id="monthSelect" aria-label="Menü ayı"></select></label>
       <nav class="control-panel" aria-label="Menü görünümü">
         <div class="segment meal" role="tablist" aria-label="Öğün seçimi">
+          <span class="seg-pill" aria-hidden="true"></span>
           <button type="button" data-meal="breakfast" role="tab" aria-selected="true"><span>☀️ Kahvaltı</span><span class="meal-hours">06.00–12.00</span></button>
           <button type="button" data-meal="dinner" role="tab" aria-selected="false"><span>🌙 Akşam</span><span class="meal-hours">16.00–22.00</span></button>
         </div>
         <div class="segment view" role="tablist" aria-label="Liste görünümü">
+          <span class="seg-pill" aria-hidden="true"></span>
           <button type="button" data-view="daily" role="tab" aria-selected="true">Gün gün</button>
           <button type="button" data-view="monthly" role="tab" aria-selected="false">Ayın tamamı</button>
         </div>
       </nav>
+
+      <div class="search" role="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+        <input id="searchInput" type="search" placeholder="Yemek ara: pizza, mantı, baklava…" aria-label="Bu ayın menüsünde yemek ara" autocomplete="off" enterkeyhint="search">
+        <button type="button" class="search-clear" id="searchClear" aria-label="Aramayı temizle" hidden>×</button>
+      </div>
 
       <div class="date-rail-wrap" id="dateRailWrap">
         <div class="date-rail" id="dateRail" aria-label="Tarih seçimi"></div>
@@ -342,6 +558,7 @@
           <span class="count" id="resultCount"></span>
         </div>
         <div class="menu-grid daily" id="menuGrid"></div>
+        <p class="swipe-hint" aria-hidden="true">Gün değiştirmek için kartı sağa sola kaydır</p>
       </section>
 
       <aside class="menu-note">
@@ -362,6 +579,7 @@
     let monthName;
     let monthLabel;
     let rangeLabel;
+    let previous = null;
 
     function tokatNow() {
       const parts = new Intl.DateTimeFormat("en-GB", {
@@ -370,14 +588,20 @@
         month: "2-digit",
         day: "2-digit",
         hour: "2-digit",
+        minute: "2-digit",
         hourCycle: "h23"
       }).formatToParts(new Date());
       const values = Object.fromEntries(parts.filter(part => part.type !== "literal").map(part => [part.type, Number(part.value)]));
-      return { year: values.year, month: values.month, day: values.day, hour: values.hour };
+      return { year: values.year, month: values.month, day: values.day, hour: values.hour, minute: values.minute };
     }
 
     const monthKey = value => `${value.year}-${String(value.month).padStart(2, "0")}`;
     const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
+    const fold = value => String(value).toLocaleLowerCase("tr-TR").replace(/[çğıöşüâîû]/g, char => ({ ç: "c", ğ: "g", ı: "i", ö: "o", ş: "s", ü: "u", â: "a", î: "i", û: "u" }[char]));
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const EASE = "cubic-bezier(.2,0,0,1)";
+    const EASE_EMPHASIZED = "cubic-bezier(.05,.7,.1,1)";
+    const EASE_SETTLE = "cubic-bezier(.25,1.1,.4,1)";
     const initialTime = tokatNow();
     const currentKey = monthKey(initialTime);
     const initialMenu = menuMonths.find(item => monthKey(item) === currentKey)
@@ -386,13 +610,16 @@
     const state = {
       meal: initialTime.hour >= 6 && initialTime.hour < 12 ? "breakfast" : "dinner",
       view: "daily",
-      selectedDay: 1
+      selectedDay: 1,
+      query: ""
     };
     const mealMeta = {
-      breakfast: { label: "Kahvaltı", glyph: "☀️", hours: "06.00–12.00", color: "var(--breakfast)", soft: "var(--breakfast-soft)" },
-      dinner: { label: "Akşam yemeği", glyph: "🌙", hours: "16.00–22.00", color: "var(--dinner)", soft: "var(--dinner-soft)" }
+      breakfast: { label: "Kahvaltı", glyph: "☀️", hours: "06.00–12.00", color: "var(--breakfast)", soft: "var(--breakfast-soft)", theme: "#153f3a" },
+      dinner: { label: "Akşam yemeği", glyph: "🌙", hours: "16.00–22.00", color: "var(--dinner)", soft: "var(--dinner-soft)", theme: "#0c222b" }
     };
     const el = id => document.getElementById(id);
+    const searchTerm = () => fold(state.query.trim());
+    const isSearching = () => searchTerm().length >= 2;
 
     function selectMonth(value) {
       activeMenu = value;
@@ -413,7 +640,22 @@
       el("monthSelect").value = monthKey(value);
       document.title = `Tokat KYK Menü · ${monthLabel}`;
       document.querySelector('meta[name="description"]').content = `Tokat KYK yurtları ${monthLabel} kahvaltı ve akşam yemeği menüsü.`;
+      previous = null;
       render();
+    }
+
+    function highlight(text, term) {
+      if (!term) return escapeHtml(text);
+      const folded = fold(text);
+      if (folded.length !== text.length) return escapeHtml(text);
+      let out = "";
+      let from = 0;
+      let at;
+      while ((at = folded.indexOf(term, from)) !== -1) {
+        out += `${escapeHtml(text.slice(from, at))}<mark>${escapeHtml(text.slice(at, at + term.length))}</mark>`;
+        from = at + term.length;
+      }
+      return out + escapeHtml(text.slice(from));
     }
 
     function renderDateRail() {
@@ -422,40 +664,111 @@
         const isToday = current.year === activeMenu.year && current.month === activeMenu.month && current.day === item.day;
         return `<button type="button" class="date-chip ${state.selectedDay === item.day ? "is-active" : ""}" data-day="${item.day}" ${isToday ? 'aria-current="date"' : ''} aria-label="${item.day} ${monthName} ${item.weekday}"><small>${({ Pazartesi: "Pzt", Salı: "Sal", Çarşamba: "Çar", Perşembe: "Per", Cuma: "Cum", Cumartesi: "Cmt", Pazar: "Paz" })[item.weekday]}</small><strong>${item.day}</strong></button>`;
       }).join("");
-      el("dateRail").querySelectorAll(".date-chip").forEach(button => button.addEventListener("click", () => {
-        state.selectedDay = Number(button.dataset.day); state.view = "daily"; syncViewButtons(); render();
-      }));
+      el("dateRail").querySelectorAll(".date-chip").forEach(button => button.addEventListener("click", () => goToDay(Number(button.dataset.day))));
     }
 
-    function cardTemplate(item, index) {
-      const meta = mealMeta[state.meal];
-      const fixed = state.meal === "breakfast" ? sharedBreakfast : sharedDinner;
-      const list = [...item[state.meal].map(text => ({ text, fixed: false })), ...fixed.map(text => ({ text, fixed: true }))];
+    function cardTemplate(entry, index) {
+      const { item, meal } = entry;
+      const meta = mealMeta[meal];
+      const term = isSearching() ? searchTerm() : "";
+      const fixed = term ? [] : (meal === "breakfast" ? sharedBreakfast : sharedDinner);
+      const list = [...item[meal].map(text => ({ text, fixed: false })), ...fixed.map(text => ({ text, fixed: true }))];
       const current = tokatNow();
       const isToday = current.year === activeMenu.year && current.month === activeMenu.month && current.day === item.day;
-      return `<article class="menu-card" style="--meal-color:${meta.color};--meal-soft:${meta.soft};animation-delay:${Math.min(index * 30, 240)}ms">
+      const goto = term ? ` data-goto="${item.day}" data-goto-meal="${meal}" tabindex="0" aria-label="${item.day} ${monthName} ${meta.label} menüsüne git"` : "";
+      return `<article class="menu-card"${goto} style="--meal-color:${meta.color};--meal-soft:${meta.soft};animation-delay:${Math.min(index * 30, 240)}ms">
         ${isToday ? '<span class="today-flag">BUGÜN</span>' : ''}
-        <div class="card-date"><div><p class="weekday">${item.weekday}</p><div class="day">${item.day}</div><span class="month">${monthLabel}</span></div><span class="meal-badge"><span aria-hidden="true">${meta.glyph}</span>${meta.label}</span></div>
-        <ol class="menu-list">${list.map((dish, i) => `<li class="${dish.fixed ? "fixed-item" : ""}"><span class="dish-index">${i + 1}</span><span>${escapeHtml(dish.text)}</span></li>`).join("")}</ol>
+        <div class="card-date"><div><p class="weekday">${item.weekday}</p><div class="day">${item.day}</div><span class="month">${monthLabel}</span></div><span class="meal-badge"><span class="meal-glyph" aria-hidden="true">${meta.glyph}</span>${meta.label}</span></div>
+        <ol class="menu-list">${list.map((dish, i) => `<li class="${dish.fixed ? "fixed-item" : ""}"><span class="dish-index">${i + 1}</span><span>${highlight(dish.text, term)}</span></li>`).join("")}</ol>
       </article>`;
     }
 
     function syncViewButtons() { document.querySelectorAll("[data-view]").forEach(button => button.setAttribute("aria-selected", String(button.dataset.view === state.view))); }
 
+    function movePills() {
+      document.querySelectorAll(".segment").forEach(segment => {
+        const pill = segment.querySelector(".seg-pill");
+        const active = segment.querySelector('button[aria-selected="true"]');
+        if (!pill || !active) return;
+        pill.style.width = `${active.offsetWidth}px`;
+        pill.style.transform = `translate(${active.offsetLeft}px, ${active.offsetTop - 5}px)`;
+        pill.style.height = `${active.offsetHeight}px`;
+        pill.style.bottom = "auto";
+      });
+    }
+
+    function animateDaily(direction, mealChanged, previousColor) {
+      if (reduceMotion.matches) return;
+      const card = el("menuGrid").querySelector(".menu-card");
+      if (!card) return;
+      card.style.animation = "none";
+      const side = card.querySelector(".card-date");
+      if (mealChanged && previousColor) {
+        side.animate([{ backgroundColor: previousColor }, { backgroundColor: getComputedStyle(side).backgroundColor }], { duration: 450, easing: EASE });
+        card.querySelector(".meal-glyph").animate([{ transform: "rotate(90deg) scale(.5)", opacity: 0 }, { transform: "none", opacity: 1 }], { duration: 380, delay: 60, easing: EASE_SETTLE, fill: "backwards" });
+      }
+      if (direction) {
+        card.querySelector(".day").animate([{ transform: `translateX(${direction * 34}px)`, opacity: 0 }, { transform: "none", opacity: 1 }], { duration: 340, easing: EASE_EMPHASIZED });
+        card.querySelector(".weekday").animate([{ transform: `translateX(${direction * 18}px)`, opacity: 0 }, { transform: "none", opacity: 1 }], { duration: 300, delay: 40, easing: EASE, fill: "backwards" });
+      }
+      card.querySelectorAll(".menu-list li").forEach((item, i) => {
+        item.animate([{ transform: "translateY(10px)", opacity: 0 }, { transform: "none", opacity: 1 }], { duration: 300, delay: Math.min(i * 30, 240), easing: EASE_EMPHASIZED, fill: "backwards" });
+      });
+    }
+
     function render() {
-      document.body.dataset.meal = state.meal;
-      document.querySelectorAll("button[data-meal]").forEach(button => button.setAttribute("aria-selected", String(button.dataset.meal === state.meal)));
-      renderDateRail();
-      const selected = menu.find(item => item.day === state.selectedDay);
-      const shown = state.view === "daily" ? [selected] : menu;
+      const grid = el("menuGrid");
+      const previousSide = grid.classList.contains("daily") ? grid.querySelector(".card-date") : null;
+      const previousColor = previousSide ? getComputedStyle(previousSide).backgroundColor : "";
+      const searching = isSearching();
       const meta = mealMeta[state.meal];
-      el("dateRailWrap").hidden = state.view === "monthly";
-      el("menuGrid").className = `menu-grid ${state.view === "daily" ? "daily" : ""}`;
-      el("menuGrid").innerHTML = shown.map(cardTemplate).join("");
-      el("resultTitle").textContent = state.view === "daily" ? `${selected.day} ${monthName} · ${selected.weekday}` : `${monthName} ayı ${meta.label.toLocaleLowerCase("tr-TR")}`;
-      el("resultSubtitle").textContent = state.view === "daily" ? `${meta.label} · ${meta.hours}` : `${rangeLabel} · ${meta.hours}`;
-      el("resultCount").textContent = state.view === "daily" ? `${shown[0][state.meal].length + (state.meal === "breakfast" ? sharedBreakfast.length : sharedDinner.length)} kalem` : `${shown.length} gün`;
-      el("introSummary").textContent = state.view === "daily" ? `${selected.day} ${monthName} ${selected.weekday} için ${meta.label.toLocaleLowerCase("tr-TR")} menüsü gösteriliyor · ${meta.hours}.` : `${shown.length} günlük ${meta.label.toLocaleLowerCase("tr-TR")} menüsünün tamamı açık.`;
+
+      document.body.dataset.meal = state.meal;
+      document.querySelector('meta[name="theme-color"]').content = meta.theme;
+      document.querySelectorAll("button[data-meal]").forEach(button => button.setAttribute("aria-selected", String(button.dataset.meal === state.meal)));
+      syncViewButtons();
+      movePills();
+      renderDateRail();
+      el("searchClear").hidden = !state.query;
+
+      const selected = menu.find(item => item.day === state.selectedDay) || menu[0];
+      let shown;
+      if (searching) {
+        const term = searchTerm();
+        shown = menu.flatMap(item => ["breakfast", "dinner"].filter(meal => item[meal].some(dish => fold(dish).includes(term))).map(meal => ({ item, meal })));
+      } else {
+        shown = state.view === "daily" ? [{ item: selected, meal: state.meal }] : menu.map(item => ({ item, meal: state.meal }));
+      }
+      const daily = !searching && state.view === "daily";
+      el("dateRailWrap").hidden = !daily;
+      grid.className = `menu-grid ${daily ? "daily" : ""}`;
+      grid.innerHTML = shown.length
+        ? shown.map(cardTemplate).join("")
+        : `<div class="empty">${escapeHtml(monthLabel)} menüsünde “${escapeHtml(state.query.trim())}” geçen bir yemek bulunamadı.</div>`;
+
+      if (searching) {
+        const query = state.query.trim();
+        el("resultTitle").textContent = `“${query}” araması`;
+        el("resultSubtitle").textContent = `${monthLabel} · kahvaltı ve akşam · karta dokunup o güne git`;
+        el("resultCount").textContent = `${shown.length} öğün`;
+        el("introSummary").textContent = shown.length ? `“${query}” ${monthName} ayında ${shown.length} öğünde var.` : `“${query}” ${monthName} menüsünde yok.`;
+      } else if (daily) {
+        el("resultTitle").textContent = `${selected.day} ${monthName} · ${selected.weekday}`;
+        el("resultSubtitle").textContent = `${meta.label} · ${meta.hours}`;
+        el("resultCount").textContent = `${selected[state.meal].length + (state.meal === "breakfast" ? sharedBreakfast.length : sharedDinner.length)} kalem`;
+        el("introSummary").textContent = `${selected.day} ${monthName} ${selected.weekday} için ${meta.label.toLocaleLowerCase("tr-TR")} menüsü gösteriliyor · ${meta.hours}.`;
+      } else {
+        el("resultTitle").textContent = `${monthName} ayı ${meta.label.toLocaleLowerCase("tr-TR")}`;
+        el("resultSubtitle").textContent = `${rangeLabel} · ${meta.hours}`;
+        el("resultCount").textContent = `${shown.length} gün`;
+        el("introSummary").textContent = `${shown.length} günlük ${meta.label.toLocaleLowerCase("tr-TR")} menüsünün tamamı açık.`;
+      }
+
+      if (daily && previous && previous.daily) {
+        animateDaily(Math.sign(selected.day - previous.day), previous.meal !== state.meal, previousColor);
+      }
+      previous = { daily, day: selected.day, meal: state.meal };
+
       const now = tokatNow();
       const outdated = monthKey(now) !== monthKey(activeMenu);
       const currentAvailable = menuMonths.some(item => monthKey(item) === monthKey(now));
@@ -463,19 +776,112 @@
       el("availabilityNotice").textContent = currentAvailable
         ? `${monthLabel} menüsü gösteriliyor. Bu ayın menüsünü ay seçiminden açabilirsiniz.`
         : `Bu ayın menüsü henüz eklenmedi. ${monthLabel} menüsü gösteriliyor.`;
-      const hour = now.hour;
-      el("statusPill").textContent = hour >= 6 && hour < 12 ? "Kahvaltı saati" : hour >= 16 && hour < 22 ? "Akşam yemeği saati" : "Menü yayında";
-      requestAnimationFrame(() => { const active = el("dateRail").querySelector(".is-active"); if (active && state.view === "daily") active.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" }); });
+      updateLive();
+      requestAnimationFrame(() => { const active = el("dateRail").querySelector(".is-active"); if (active && daily) active.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" }); });
+    }
+
+    function serviceStatus(now) {
+      const minutes = now.hour * 60 + now.minute;
+      if (minutes >= 360 && minutes < 720) return { meal: "breakfast", live: true, left: 720 - minutes, progress: (minutes - 360) / 360 };
+      if (minutes >= 960 && minutes < 1320) return { meal: "dinner", live: true, left: 1320 - minutes, progress: (minutes - 960) / 360 };
+      if (minutes >= 720 && minutes < 960) return { meal: "dinner", live: false, left: 960 - minutes, progress: (minutes - 720) / 240 };
+      const left = minutes >= 1320 ? 1440 - minutes + 360 : 360 - minutes;
+      return { meal: "breakfast", live: false, left, progress: 1 - left / 480, tomorrow: minutes >= 1320 };
+    }
+
+    function duration(minutes) {
+      const hours = Math.floor(minutes / 60);
+      const rest = minutes % 60;
+      return hours ? `${hours} sa ${rest} dk` : `${rest} dk`;
+    }
+
+    function updateLive() {
+      const now = tokatNow();
+      const status = serviceStatus(now);
+      const label = mealMeta[status.meal].label;
+      el("liveChip").classList.toggle("is-live", status.live);
+      el("liveTitle").textContent = status.live ? `${label} servisi sürüyor` : `${label} servisine ${duration(status.left)}`;
+      el("liveDetail").textContent = status.live ? `${duration(status.left)} kaldı · ${mealMeta[status.meal].hours}` : `${status.tomorrow ? "Yarın " : ""}${mealMeta[status.meal].hours} · menüyü gör`;
+      el("liveBar").style.strokeDashoffset = String(94.25 * (1 - Math.min(Math.max(status.progress, 0), 1)));
+      el("statusPill").textContent = now.hour >= 6 && now.hour < 12 ? "Kahvaltı saati" : now.hour >= 16 && now.hour < 22 ? "Akşam yemeği saati" : "Menü yayında";
+    }
+
+    function goToDay(day, meal) {
+      if (!menu.some(item => item.day === day)) return;
+      if (meal) state.meal = meal;
+      state.selectedDay = day;
+      state.view = "daily";
+      if (state.query) { state.query = ""; el("searchInput").value = ""; }
+      render();
     }
 
     document.querySelectorAll("button[data-meal]").forEach(button => button.addEventListener("click", () => { state.meal = button.dataset.meal; render(); }));
-    document.querySelectorAll("[data-view]").forEach(button => button.addEventListener("click", () => { state.view = button.dataset.view; syncViewButtons(); render(); }));
+    document.querySelectorAll("[data-view]").forEach(button => button.addEventListener("click", () => {
+      state.view = button.dataset.view;
+      if (state.query) { state.query = ""; el("searchInput").value = ""; }
+      render();
+    }));
+    el("searchInput").addEventListener("input", event => { state.query = event.target.value; render(); });
+    el("searchInput").addEventListener("keydown", event => { if (event.key === "Escape") { state.query = ""; event.target.value = ""; render(); } });
+    el("searchClear").addEventListener("click", () => { state.query = ""; el("searchInput").value = ""; render(); el("searchInput").focus(); });
+    el("menuGrid").addEventListener("click", event => {
+      const card = event.target.closest(".menu-card[data-goto]");
+      if (card) goToDay(Number(card.dataset.goto), card.dataset.gotoMeal);
+    });
+    el("menuGrid").addEventListener("keydown", event => {
+      const card = event.target.closest(".menu-card[data-goto]");
+      if (card && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); goToDay(Number(card.dataset.goto), card.dataset.gotoMeal); }
+    });
+    el("liveChip").addEventListener("click", () => {
+      const now = tokatNow();
+      const status = serviceStatus(now);
+      const isCurrentMonth = monthKey(now) === monthKey(activeMenu);
+      const day = isCurrentMonth ? now.day + (status.tomorrow ? 1 : 0) : state.selectedDay;
+      if (menu.some(item => item.day === day)) goToDay(day, status.meal);
+      else { state.meal = status.meal; render(); }
+      document.querySelector(".control-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    // Telefonda kartı kaydırarak, klavyede ok tuşlarıyla gün değiştirme
+    let touchStart = null;
+    el("menuGrid").addEventListener("pointerdown", event => { if (event.pointerType === "touch") touchStart = { x: event.clientX, y: event.clientY }; });
+    el("menuGrid").addEventListener("pointerup", event => {
+      if (!touchStart || event.pointerType !== "touch") return;
+      const dx = event.clientX - touchStart.x;
+      const dy = event.clientY - touchStart.y;
+      touchStart = null;
+      if (state.view !== "daily" || isSearching() || Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+      goToDay(state.selectedDay + (dx < 0 ? 1 : -1));
+    });
+    el("menuGrid").addEventListener("pointercancel", () => { touchStart = null; });
+    document.addEventListener("keydown", event => {
+      if (state.view !== "daily" || isSearching() || event.altKey || event.ctrlKey || event.metaKey) return;
+      if (event.target.closest?.("input, select, textarea, [contenteditable]")) return;
+      if (event.key === "ArrowRight") goToDay(state.selectedDay + 1);
+      if (event.key === "ArrowLeft") goToDay(state.selectedDay - 1);
+    });
+
+    // Fareyle hafif derinlik (yalnızca hassas işaretçide)
+    if (window.matchMedia("(pointer: fine)").matches && !reduceMotion.matches) {
+      const hero = el("hero");
+      hero.addEventListener("pointermove", event => {
+        const box = hero.getBoundingClientRect();
+        hero.style.setProperty("--px", ((event.clientX - box.left) / box.width * 2 - 1).toFixed(3));
+        hero.style.setProperty("--py", ((event.clientY - box.top) / box.height * 2 - 1).toFixed(3));
+      });
+      hero.addEventListener("pointerleave", () => { hero.style.setProperty("--px", "0"); hero.style.setProperty("--py", "0"); });
+    }
+
     el("monthSelect").innerHTML = menuMonths.map(value => {
       const label = new Intl.DateTimeFormat("tr-TR", {month: "long", year: "numeric", timeZone: "UTC"}).format(new Date(Date.UTC(value.year, value.month - 1, 1)));
       return `<option value="${monthKey(value)}">${label}</option>`;
     }).join("");
     el("monthSelect").addEventListener("change", event => selectMonth(menuMonths.find(value => monthKey(value) === event.target.value)));
     selectMonth(initialMenu);
+    window.addEventListener("resize", movePills);
+    if (document.fonts) document.fonts.ready.then(movePills);
+    setInterval(updateLive, 30000);
+    requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.remove("preload")));
     window.addEventListener("load", async () => {
       try {
         if ("serviceWorker" in navigator) {
@@ -493,4 +899,3 @@
   </script>
 </body>
 </html>
-
