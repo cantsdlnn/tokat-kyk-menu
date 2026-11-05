@@ -30,7 +30,24 @@ Geri dönüş: hatalı değişikliği `git revert` ile geri al, kontrolleri çal
 Aktarım öncesi Sites kaynak commit'i: `8b4c228156bab1af65b25243c855a367784c3479`.
 Eski Sites yayını: https://tokat-kyk-menu-2026.tasdelennusretcan58.chatgpt.site
 Yeni yayın adresi: https://cantsdlnn.github.io/tokat-kyk-menu/
-Alan adı geçişi: DNS ve GitHub Pages özel alan adı ayarları tamamlanana kadar tokatkykmenubc.com eski Sites yayınına gider. Eski yayın geçiş doğrulanmadan kaldırılmaz.
+5 Kasım 2026 durumu: GitHub Actions build ve deploy başarılı. GitHub Pages özel alan adı `tokatkykmenubc.com` olarak kaydedildi. TurkTicaret DNS geçişi BEKLİYOR; alan adı hâlâ eski Sites yayınına gidiyor. GitHub Pages'in github.io adresi özel alan adına yönlenebilir. Eski yayın geçiş doğrulanmadan kaldırılmaz. GitHub hesabı ve depo kurulumu tamamlandı; Claude hesabında Code oturumu açma/proje seçimi kullanıcıda.
+
+### DNS geçişinde kalan adım
+
+TurkTicaret'te `tokatkykmenubc.com` alan adının DNS yönetiminde kök (`@`) A kayıtlarını aşağıdaki dört kayıtla değiştir:
+
+| Tür | Ad | Değer |
+| --- | --- | --- |
+| A | @ | 185.199.108.153 |
+| A | @ | 185.199.109.153 |
+| A | @ | 185.199.110.153 |
+| A | @ | 185.199.111.153 |
+
+Geçiş öncesi kök A kayıtları: `172.66.3.26` ve `162.159.143.30`. Bu iki kök web yönlendirmesi değiştirilir; posta (MX), TXT ve diğer hizmet kayıtları korunur. `www` kullanılacaksa CNAME hedefi `cantsdlnn.github.io` olmalıdır (repo adı veya https ekleme). Ad sunucularını değiştirmek gerekmez.
+
+Sonrasında DNS sonuçlarını ve `gh api repos/cantsdlnn/tokat-kyk-menu/pages` yanıtını kontrol et. Sertifika hazır olduğunda GitHub Pages'te HTTPS zorlamasını aç. DNS ve sertifika hazır olmadan HTTPS geçişi tamamlandı deme. Başlangıçta sertifika beklenirken `https_enforced` false dönebilir; geçiş sonunda true olmalı.
+
+Resmî kayıt değerleri: https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
 
 ## İsteğe bağlı GitHub @claude
 
