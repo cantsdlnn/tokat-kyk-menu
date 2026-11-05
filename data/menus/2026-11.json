@@ -1,0 +1,501 @@
+{
+  "year": 2026,
+  "month": 11,
+  "source": "Tokat Gençlik ve Spor İl Müdürlüğü, kullanıcı tarafından sağlanan Kasım 2026 pano fotoğrafları",
+  "sharedBreakfast": [
+    "Siyah / Yeşil zeytin",
+    "Çeyrek ekmek",
+    "500 ml su",
+    "Çay / Bitki çayı"
+  ],
+  "sharedDinner": [
+    "Çeyrek ekmek",
+    "500 ml su"
+  ],
+  "days": [
+    {
+      "day": 1,
+      "breakfast": [
+        "Peynirli omlet",
+        "Biber kızartması",
+        "Sade poğaça",
+        "Labne peyniri"
+      ],
+      "dinner": [
+        "Yayla / Tarhana çorba",
+        "Fırında sebzeli tavuk",
+        "Karışık kızartma",
+        "Domates soslu makarna",
+        "Mercimek köftesi"
+      ]
+    },
+    {
+      "day": 2,
+      "breakfast": [
+        "Haşlanmış yumurta",
+        "Patates kızartması",
+        "Zeytinli / Peynirli açma",
+        "Beyaz peynir"
+      ],
+      "dinner": [
+        "Süzme mercimek / Mantar çorba",
+        "Izgara köfte + köz domates biber",
+        "Tavuk kanat / incik + köz domates biber",
+        "Nohut yemeği",
+        "Pirinç pilavı"
+      ]
+    },
+    {
+      "day": 3,
+      "breakfast": [
+        "Kaşarlı omlet",
+        "Kakaolu kek",
+        "Dere otlu poğaça",
+        "Kaşar peyniri"
+      ],
+      "dinner": [
+        "Şehriye / Toyga çorba",
+        "Tavuk şiş + salata",
+        "Mevsim türlü",
+        "Bulgur pilavı",
+        "Haydari"
+      ]
+    },
+    {
+      "day": 4,
+      "breakfast": [
+        "Haşlanmış yumurta",
+        "Sosis kızartma",
+        "Peynirli / Ispanaklı börek",
+        "Beyaz peynir"
+      ],
+      "dinner": [
+        "Ezogelin / Yayla çorba",
+        "Et tantuni (ekmek arası)",
+        "Tavuk tantuni (ekmek arası)",
+        "Kabak mücver",
+        "Salçalı makarna",
+        "Ayran"
+      ]
+    },
+    {
+      "day": 5,
+      "breakfast": [
+        "Sucuklu omlet",
+        "Karışık kızartma",
+        "Simit",
+        "Krem peyniri"
+      ],
+      "dinner": [
+        "Domates / Sebze çorba",
+        "Tavuk fajita",
+        "Biber dolma",
+        "Spagetti",
+        "Karışık salata"
+      ]
+    },
+    {
+      "day": 6,
+      "breakfast": [
+        "Haşlanmış yumurta",
+        "Haşlanmış patates + domates-salatalık",
+        "Karışık pizza",
+        "Beyaz peynir"
+      ],
+      "dinner": [
+        "Ezogelin / Toyga çorba",
+        "Çiftlik köfte",
+        "İmambayıldı",
+        "Pirinç pilavı",
+        "Supangle"
+      ]
+    },
+    {
+      "day": 7,
+      "breakfast": [
+        "Menemen",
+        "Yumurta salatası",
+        "Çikolatalı milföy börek",
+        "Beyaz peynir"
+      ],
+      "dinner": [
+        "Tutmaç / Tarhana çorba",
+        "Tavuk külbastı + fırında elma dilim patates",
+        "Etsiz güveç",
+        "Domates soslu makarna",
+        "Meyveli yaş pasta"
+      ]
+    },
+    {
+      "day": 8,
+      "breakfast": [
+        "Haşlanmış yumurta",
+        "Patates kavurması",
+        "Pişi + sürülebilir çikolata",
+        "Kaşar peyniri"
+      ],
+      "dinner": [
+        "Düğün / Şehriye çorba",
+        "Kuru fasulye yemeği",
+        "Fırında patates (beşamelli / beşamelsiz)",
+        "Meyhane pilavı",
+        "Cevizli baklava"
+      ]
+    },
+    {
+      "day": 9,
+      "breakfast": [
+        "Sade omlet",
+        "Patates kızartması",
+        "Sade poğaça",
+        "Beyaz peynir"
+      ],
+      "dinner": [
+        "Süzme mercimek / Kremalı tavuk çorba",
+        "Et döner + karışık salata",
+        "Sebze sote",
+        "Pirinç pilavı",
+        "Ayran"
+      ]
+    },
+    {
+      "day": 10,
+      "breakfast": [
+        "Sucuklu yumurta",
+        "Salçalı sosis",
+        "Peynirli / Ispanaklı börek",
+        "Krem peyniri"
+      ],
+      "dinner": [
+        "Yayla / Domates çorba",
+        "Tavuk pirzola + patates cips",
+        "Ispanak yemeği",
+        "Salçalı makarna",
+        "Havuç tarator"
+      ]
+    },
+    {
+      "day": 11,
+      "breakfast": [
+        "Peynirli omlet",
+        "Kek",
+        "Zeytinli / Peynirli açma",
+        "Kaşar peyniri"
+      ],
+      "dinner": [
+        "Erişteli yeşil mercimek / Terbiyeli tavuk çorba",
+        "Tas kebabı",
+        "Biber dolma",
+        "Börek",
+        "Kısır"
+      ]
+    },
+    {
+      "day": 12,
+      "breakfast": [
+        "Haşlanmış yumurta",
+        "Patates kızartması",
+        "Pişi + domates-salatalık",
+        "Beyaz peynir"
+      ],
+      "dinner": [
+        "Mercimek / Düğün çorba",
+        "Tavuk çökertme",
+        "Sebzeli mantar sote",
+        "Bulgur pilavı",
+        "Çoban salata"
+      ]
+    },
+    {
+      "day": 13,
+      "breakfast": [
+        "Menemen",
+        "Patates salatası",
+        "Simit",
+        "Labne peyniri"
+      ],
+      "dinner": [
+        "Şehriye / Mantar çorba",
+        "Hamburger + ketçap + mayonez",
+        "Fırında sebze dizmesi (patlıcan, kabak, domates, biber)",
+        "Patates kızartması",
+        "Ayran veya meyve suyu"
+      ]
+    },
+    {
+      "day": 14,
+      "breakfast": [
+        "Haşlanmış yumurta",
+        "Domates soslu biber kızartması",
+        "Sosisli milföy börek",
+        "Kaşar peyniri"
+      ],
+      "dinner": [
+        "Ezogelin / Sebze çorba",
+        "Tavuklu sultan kebabı",
+        "Bezelye yemeği",
+        "Pirinç pilavı",
+        "Kadayıflı muhallebi"
+      ]
+    },
+    {
+      "day": 15,
+      "breakfast": [
+        "Sucuklu omlet",
+        "Patates kroket",
+        "Dere otlu poğaça",
+        "Beyaz peynir"
+      ],
+      "dinner": [
+        "Tutmaç / Domates çorba",
+        "Nohut yemeği",
+        "Karışık sebze graten",
+        "Bulgur pilavı"
+      ]
+    },
+    {
+      "day": 16,
+      "breakfast": [
+        "Haşlanmış yumurta",
+        "Patates kızartması",
+        "Sade poğaça",
+        "Kaşar peyniri"
+      ],
+      "dinner": [
+        "Mercimek / Yayla çorba",
+        "Çıtır tavuk + kroket",
+        "Ispanak sufle",
+        "Soslu makarna",
+        "Karışık salata"
+      ]
+    },
+    {
+      "day": 17,
+      "breakfast": [
+        "Peynirli omlet",
+        "Menemen",
+        "Simit",
+        "Beyaz peynir"
+      ],
+      "dinner": [
+        "Terbiyeli tavuk / Tarhana çorba",
+        "Patlıcan musakka",
+        "Taze fasulye",
+        "Şehriyeli pirinç pilavı",
+        "Kabak tatlısı + tahin + ceviz"
+      ]
+    },
+    {
+      "day": 18,
+      "breakfast": [
+        "Haşlanmış yumurta",
+        "Patates kavurması",
+        "Karışık pizza",
+        "Krem peyniri"
+      ],
+      "dinner": [
+        "Ezogelin / Mantar çorba",
+        "Tavuk tantuni (ekmek arası, söğüş ile)",
+        "Karışık kızartma",
+        "Salçalı makarna",
+        "Ayran"
+      ]
+    },
+    {
+      "day": 19,
+      "breakfast": [
+        "Sade omlet",
+        "Sosis kızartma + domates-salatalık",
+        "Pişi + reçel",
+        "Beyaz peynir"
+      ],
+      "dinner": [
+        "Domates / Yayla çorba",
+        "Rosto köfte + patates püresi",
+        "Tavuk şiş + elma dilim patates",
+        "Mevsim türlü",
+        "Meyhane pilavı",
+        "Karışık salata"
+      ]
+    },
+    {
+      "day": 20,
+      "breakfast": [
+        "Haşlanmış yumurta",
+        "Karışık kızartma",
+        "Zeytinli / Peynirli açma",
+        "Kaşar peyniri"
+      ],
+      "dinner": [
+        "Mercimek / Düğün çorba",
+        "Kuru fasulye yemeği",
+        "Fırında patates (beşamelli / beşamelsiz)",
+        "Pirinç pilavı",
+        "Cevizli baklava"
+      ]
+    },
+    {
+      "day": 21,
+      "breakfast": [
+        "Kaşarlı omlet",
+        "Patates salatası",
+        "Çikolatalı milföy börek",
+        "Beyaz peynir"
+      ],
+      "dinner": [
+        "Şehriye / Tutmaç çorba",
+        "Ekmek arası tavuk (söğüş ile)",
+        "Biber dolma",
+        "Börek",
+        "Ayran"
+      ]
+    },
+    {
+      "day": 22,
+      "breakfast": [
+        "Haşlanmış yumurta",
+        "Menemen",
+        "Peynirli / Ispanaklı börek",
+        "Kaşar peyniri"
+      ],
+      "dinner": [
+        "Ezogelin / Sebze çorba",
+        "Et çökertme",
+        "İmambayıldı",
+        "Bulgur pilavı",
+        "Karışık salata"
+      ]
+    },
+    {
+      "day": 23,
+      "breakfast": [
+        "Peynirli omlet",
+        "Patates kızartması",
+        "Dere otlu poğaça",
+        "Beyaz peynir"
+      ],
+      "dinner": [
+        "Domates / Mantar çorba",
+        "Tavuklu buğu kebabı",
+        "Nohut yemeği",
+        "Şehriyeli pirinç pilavı",
+        "Bisküvili pasta"
+      ]
+    },
+    {
+      "day": 24,
+      "breakfast": [
+        "Haşlanmış yumurta",
+        "Salçalı sosis",
+        "Simit",
+        "Kaşar peyniri"
+      ],
+      "dinner": [
+        "Mercimek / Kremalı tavuk çorba",
+        "Hamburger + ketçap + mayonez",
+        "Sebze sote (patatessiz)",
+        "Patates kızartması",
+        "Ayran veya meyve suyu"
+      ]
+    },
+    {
+      "day": 25,
+      "breakfast": [
+        "Sucuklu omlet",
+        "Tokat çöreği",
+        "Mozaik kek",
+        "Beyaz peynir"
+      ],
+      "dinner": [
+        "Toyga / Tarhana çorba",
+        "Et sote",
+        "Karışık sebze graten",
+        "Pirinç pilavı",
+        "Kuru cacık"
+      ]
+    },
+    {
+      "day": 26,
+      "breakfast": [
+        "Haşlanmış yumurta",
+        "Patates kavurması",
+        "Zeytinli / Peynirli açma",
+        "Kaşar peyniri"
+      ],
+      "dinner": [
+        "Ezogelin / Düğün çorba",
+        "Kremalı tavuk + patates cips",
+        "Karnabahar kızartması",
+        "Soslu makarna",
+        "Akdeniz salata"
+      ]
+    },
+    {
+      "day": 27,
+      "breakfast": [
+        "Sade omlet",
+        "Patates kroket",
+        "Pişi + bal",
+        "Beyaz peynir"
+      ],
+      "dinner": [
+        "Terbiyeli tavuk / Domates çorba",
+        "Nohut yemeği",
+        "Taze fasulye",
+        "Bulgur pilavı",
+        "Havuç tarator",
+        "Sütlaç"
+      ]
+    },
+    {
+      "day": 28,
+      "breakfast": [
+        "Haşlanmış yumurta + domates-salatalık",
+        "Kırmızı / Yeşil biber kızartması",
+        "Peynirli / Ispanaklı börek",
+        "Labne peyniri"
+      ],
+      "dinner": [
+        "Mercimek / Sebze çorba",
+        "Et tantuni",
+        "Tavuk tantuni",
+        "Biber dolma",
+        "Mantı",
+        "Çiğ köfte"
+      ]
+    },
+    {
+      "day": 29,
+      "breakfast": [
+        "Menemen",
+        "Patates kızartması",
+        "Sosisli milföy börek",
+        "Beyaz peynir"
+      ],
+      "dinner": [
+        "Toyga / Şehriye çorba",
+        "Tavuk kanat-incik + şehriye salatası",
+        "Kabak mücver + yoğurt",
+        "Domatesli makarna",
+        "Köz patlıcan salatası"
+      ]
+    },
+    {
+      "day": 30,
+      "breakfast": [
+        "Haşlanmış yumurta",
+        "Patates salatası",
+        "Sade poğaça",
+        "Kaşar peyniri"
+      ],
+      "dinner": [
+        "Ezogelin / Mantar çorba",
+        "Fırında köfte patates dizmesi",
+        "Sebzeli tavuk haşlama",
+        "Etsiz güveç",
+        "Nohutlu pirinç pilavı",
+        "Tulumba"
+      ]
+    }
+  ]
+}
