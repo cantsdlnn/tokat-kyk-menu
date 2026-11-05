@@ -1,7 +1,7 @@
 {
   "name": "Tokat KYK Yemek Menüsü",
   "short_name": "Tokat Menü",
-  "description": "Tokat KYK yurtları için Ekim 2026 kahvaltı ve akşam yemeği menüsü.",
+  "description": "Tokat KYK yurtları için aylık kahvaltı ve akşam yemeği menüsü.",
   "id": "./",
   "start_url": "./?app=6",
   "display": "standalone",
